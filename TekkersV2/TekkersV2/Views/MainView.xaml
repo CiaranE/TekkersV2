@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TekkersV2.Views.MainView"
+             xmlns:ViewModels ="clr-namespace:TekkersV2.ViewModels; assembly=TekkersV2">
+
+    <ContentPage.BindingContext>
+        <ViewModels:MainViewModel/>
+    </ContentPage.BindingContext>
+
+    <StackLayout Orientation="Vertical">
+        <Button Text="Add Player" Clicked="Button_OnClicked"></Button>
+        <Button Text="Find Player" Clicked="FindPlayerButton"></Button>
+        <ListView x:Name="PlayerListView" ItemsSource="{Binding PlayerList}" ItemTapped="PlayerItemTapped">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text ="{Binding FirstName}" FontSize="Large"/>
+                            <Label Text ="{Binding LastName}" FontSize="Large"/>
+                            <Label Text ="{Binding PhoneNum}" FontSize="Medium"/>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>

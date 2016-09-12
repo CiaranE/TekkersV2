@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TekkersV2.Views.SinglePlayerPage"
+             xmlns:ViewModels ="clr-namespace:TekkersV2.ViewModels; assembly=TekkersV2">
+
+
+    <ContentPage.BindingContext>
+        <ViewModels:MainViewModel/>
+    </ContentPage.BindingContext>
+
+    <StackLayout Orientation="Vertical" Spacing="18">
+
+        <Button Text="Edit player" Clicked="EditPlayerEvent"></Button>
+        <Button Text="Delete player" Clicked="DeletePlayerEvent"></Button>
+        
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Name:"
+               VerticalOptions="Center"
+               FontAttributes="Bold"
+               FontSize="Large" />
+            <Label Text="{Binding Player.FirstName}"
+               VerticalOptions="Center"
+               FontAttributes="Bold"
+               FontSize="Large" />
+
+            <Label Text="{Binding Player.LastName}"
+               VerticalOptions="Center"
+               FontAttributes="Bold"
+               FontSize="Large" />
+        </StackLayout>
+
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Date of birth:"
+               VerticalOptions="Center"
+               FontAttributes="Bold"
+               FontSize="Large" />
+            <Label Text="{Binding Player.DateOfBirth, StringFormat='{}{0:dd.MM.yyyy}'}"
+               VerticalOptions="Center"
+               FontAttributes="Bold"
+               FontSize="Large" />
+        </StackLayout>
+
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Guardian:"
+               VerticalOptions="Center"
+               FontAttributes="Bold"
+               FontSize="Large" />
+            <Label Text="{Binding Player.ParentFName}"
+               VerticalOptions="Center"
+               FontAttributes="Bold"
+               FontSize="Large" />
+
+            <Label Text="{Binding Player.ParentLName}"
+               VerticalOptions="Center"
+               FontAttributes="Bold"
+               FontSize="Large" />
+        </StackLayout>
+
+            <StackLayout Orientation="Horizontal">
+            <Label Text="Phone:"
+               VerticalOptions="Center"
+               FontAttributes="Bold"
+               FontSize="Large" />
+            <Label Text="{Binding Player.PhoneNum}"
+               VerticalOptions="Center"
+               FontAttributes="Bold"
+               FontSize="Large" />
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal">
+            <Label Text="Email:"
+               VerticalOptions="Center"
+               FontAttributes="Bold"
+               FontSize="Large" />
+            <Label Text="{Binding Player.Email}"
+               VerticalOptions="Center"
+               FontAttributes="Bold"
+               FontSize="Large" />
+            </StackLayout>
+
+
+            <Button Text="Assess player" Command="{Binding PostCommand}"></Button>
+    </StackLayout>
+</ContentPage>
