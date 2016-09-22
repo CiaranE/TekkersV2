@@ -80,6 +80,6 @@
             </StackLayout>
 
 
-            <Button Text="Assess player" Command="{Binding PostCommand}"></Button>
+            <Button Text="Assess player" Command="{Binding PostCommand} "></Button>
     </StackLayout>
 </ContentPage>

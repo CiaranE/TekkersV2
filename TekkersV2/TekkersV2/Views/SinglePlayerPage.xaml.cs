@@ -46,5 +46,15 @@ namespace TekkersV2.Views
                 return;
             }
         }
+
+        //Initiate an assessment for a player
+        private async void AssessPlayerEvent(object sender, EventArgs e)
+        {
+            var theViewModel = BindingContext as MainViewModel;
+            var thePlayer = theViewModel.Player;
+            var testPlayer = thePlayer;
+
+            await Navigation.PushAsync(new EditPlayerPage(theViewModel));
+        }
     }
 }

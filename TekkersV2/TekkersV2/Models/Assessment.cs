@@ -8,6 +8,7 @@ namespace TekkersV2.Models
 {
     public class Assessment
     {
+        public string Id { get; set; }
         public string AssessmentName { get; set; }
 
         public DateTime AssessmentDate { get; set; }

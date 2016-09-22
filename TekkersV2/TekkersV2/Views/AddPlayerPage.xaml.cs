@@ -20,7 +20,6 @@ namespace TekkersV2.Views
         public AddPlayerPage(MainViewModel theViewModel)
         {
             InitializeComponent();
-
             BindingContext = theViewModel;
         }
 

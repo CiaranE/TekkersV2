@@ -17,8 +17,8 @@ namespace TekkersV2.ViewModels
         private Player _Player = new Player();
         private List<Player> _playersByNameList;
         private string _nameToFind;
-
-
+        private AssessmentViewModel _AssessVM;
+        private TestViewModel _TestVM;
 
 
         public List<Player> PlayerList
@@ -57,6 +57,26 @@ namespace TekkersV2.ViewModels
             set
             {
                 _Player = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public AssessmentViewModel AssessVM
+        {
+            get { return _AssessVM; }
+            set
+            {
+                _AssessVM = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public TestViewModel TestVM
+        {
+            get { return _TestVM; }
+            set
+            {
+                _TestVM = value;
                 OnPropertyChanged();
             }
         }

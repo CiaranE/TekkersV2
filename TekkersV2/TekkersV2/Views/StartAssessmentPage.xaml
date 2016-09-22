@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TekkersV2.Views.StartAssessmentPage"
+             xmlns:ViewModels ="clr-namespace:TekkersV2.ViewModels; assembly=TekkersV2">
+
+
+    <ContentPage.BindingContext>
+        <ViewModels:MainViewModel/>
+    </ContentPage.BindingContext>
+
+    <StackLayout Orientation="Horizontal">
+        <Label Text="{Binding Player.FirstName}"
+               VerticalOptions="Center"
+               FontAttributes="Bold"
+               FontSize="Large" />
+
+            <Label Text="{Binding Player.LastName}"
+               VerticalOptions="Center"
+               FontAttributes="Bold"
+               FontSize="Large" />
+    </StackLayout>
+
+    <StackLayout>
+        <Label Text="Assessment name:"/>
+        <Entry Text="{Binding TestName, Mode=TwoWay}"/>
+        <Label Text="Date:"/>
+        <Entry Text="{Binding Source={x:Static sys:DateTime.Now}, Mode=TwoWay,  StringFormat='dd-MM-yyyy'}"/>
+    </StackLayout>
+
+    <StackLayout Orientation="Horizontal">
+        <ListView x:Name="PlayerListView" ItemsSource="{Binding TestVM.TestList}" ItemTapped="TestItemTapped">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text ="{Binding TestName}" FontSize="Large"/>
+                            <Label Text ="{Binding TestDate}" FontSize="Large"/>
+                            <Label Text ="{Binding TestScore}" FontSize="Large"/>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+
+</ContentPage>
+    
+    
