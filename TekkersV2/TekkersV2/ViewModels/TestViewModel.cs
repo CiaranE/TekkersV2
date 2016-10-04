@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TekkersV2.Models;
 using TekkersV2.Services;
+using Xamarin.Forms;
 
 namespace TekkersV2.ViewModels
 {
@@ -16,6 +17,7 @@ namespace TekkersV2.ViewModels
         private List<Test> _TestList;
         private string _TestName;
         private DateTime _TestDate;
+        private string _TestDescription;
         private int _TestScore;
         private MainViewModel _MainViewModel;
 
@@ -24,7 +26,7 @@ namespace TekkersV2.ViewModels
             get { return _TestList; }
             set
             {
-                TestList = value;
+                _TestList = value;
                 OnPropertyChanged();
             }
         }
@@ -59,6 +61,16 @@ namespace TekkersV2.ViewModels
             }
         }
 
+        public string TestDescription
+        {
+            get { return _TestDescription; }
+            set
+            {
+                _TestDescription = value;
+                OnPropertyChanged();
+            }
+        }
+
         public MainViewModel TestMainViewModel
         {
             get { return _MainViewModel; }
@@ -74,12 +86,12 @@ namespace TekkersV2.ViewModels
 
         }
 
-        private async Task AllTestsAsync()
+        public async Task<List<Test>> GetTestsAsync()
         {
-            var testServices = new TestServices();
-            TestList = await testServices.GetTestsAsync();
+            var testService = new TestServices();
+            TestList = await testService.GetTestsAsync();
+            return TestList;
         }
-
 
         public event PropertyChangedEventHandler PropertyChanged;
 

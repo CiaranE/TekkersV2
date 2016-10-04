@@ -52,9 +52,12 @@ namespace TekkersV2.Views
         {
             var theViewModel = BindingContext as MainViewModel;
             var thePlayer = theViewModel.Player;
-            var testPlayer = thePlayer;
-
-            await Navigation.PushAsync(new EditPlayerPage(theViewModel));
+            var assessVM = theViewModel.AssessVM;
+            var testVM = theViewModel.TestVM;
+            assessVM.AssessmentPlayer = thePlayer;
+            assessVM.AssessmentDate = DateTime.Now;
+            testVM.TestList = await testVM.GetTestsAsync();
+            await Navigation.PushAsync(new StartAssessmentPage(theViewModel));
         }
     }
 }

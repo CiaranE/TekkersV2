@@ -18,6 +18,20 @@ namespace TekkersV2.Models
 
         public int TestScore { get; set; }
 
-        public virtual ICollection<Assessment> Assessments { get; set; }
+        public virtual Assessment AssessmentTest { get; set; }
+
+        public virtual Player PlayerTest { get; set; }
+
+
+        public Test() { }
+
+        public Test(Guid id, string testname, string testdesc, DateTime testdate, int testscore)
+        {
+            this.Id = id.ToString();
+            this.TestName = testname;
+            this.TestDescription = testdesc;
+            this.TestDate = testdate;
+            this.TestScore = testscore;
+        }
     }
 }

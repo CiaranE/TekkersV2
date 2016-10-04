@@ -9,39 +9,43 @@
         <ViewModels:MainViewModel/>
     </ContentPage.BindingContext>
 
-    <StackLayout Orientation="Horizontal">
-        <Label Text="{Binding Player.FirstName}"
-               VerticalOptions="Center"
-               FontAttributes="Bold"
-               FontSize="Large" />
-
-            <Label Text="{Binding Player.LastName}"
-               VerticalOptions="Center"
-               FontAttributes="Bold"
-               FontSize="Large" />
-    </StackLayout>
-
     <StackLayout>
-        <Label Text="Assessment name:"/>
-        <Entry Text="{Binding TestName, Mode=TwoWay}"/>
-        <Label Text="Date:"/>
-        <Entry Text="{Binding Source={x:Static sys:DateTime.Now}, Mode=TwoWay,  StringFormat='dd-MM-yyyy'}"/>
-    </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="{Binding Player.FirstName}" FontSize="Large"/>
+            <Label Text="{Binding Player.LastName}" FontSize="Large"/>
+        </StackLayout>
 
-    <StackLayout Orientation="Horizontal">
-        <ListView x:Name="PlayerListView" ItemsSource="{Binding TestVM.TestList}" ItemTapped="TestItemTapped">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <StackLayout Orientation="Horizontal">
-                            <Label Text ="{Binding TestName}" FontSize="Large"/>
-                            <Label Text ="{Binding TestDate}" FontSize="Large"/>
-                            <Label Text ="{Binding TestScore}" FontSize="Large"/>
-                        </StackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <StackLayout Orientation="Vertical">
+            <Label Text="Please name the assessment:" FontSize="Large"/>
+            <Entry Text="{Binding AssessVM.AssessmentName, Mode=TwoWay}"/>
+        </StackLayout>
+        
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Date:" FontSize="Large"/>
+            <Label Text="{Binding AssessVM.AssessmentDate, StringFormat='{}{0:dd.MM.yyyy}'}" FontSize="Large"/>
+        </StackLayout>
+
+        <StackLayout Orientation="Horizontal">
+            <Label Text="These are the tests that make up the assessment. Each test is taken twice and the highest score will be recorded. Please read the instructions before starting each test."></Label>
+        </StackLayout>
+        
+        <StackLayout Orientation="Vertical">
+            <ListView x:Name="TestListView" ItemsSource="{Binding TestVM.TestList}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text ="{Binding TestName}" FontSize="Large"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+
+        <StackLayout>
+            <Button Text="Start" Clicked="StartAssessmentEvent"></Button>
+        </StackLayout>
     </StackLayout>
 
 </ContentPage>

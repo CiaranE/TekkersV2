@@ -15,6 +15,17 @@ namespace TekkersV2.Models
 
         public virtual ICollection<Test> Tests { get; set; }
 
-        public Player Player { get; set; }
+        public virtual Player Player { get; set; }
+
+        public Assessment() { }
+
+        public Assessment(Guid id, string assessmentname, DateTime assessmentdate, ICollection<Test> tests, string playerid)
+        {
+            this.Id = playerid;
+            this.AssessmentName = assessmentname;
+            this.AssessmentDate = assessmentdate;
+            this.Tests = tests;
+            this.Player.Id = playerid;
+        }
     }
 }

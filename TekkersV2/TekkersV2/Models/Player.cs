@@ -24,5 +24,7 @@ namespace TekkersV2.Models
         public string PhoneNum { get; set; }
 
         public virtual ICollection<Assessment> PlayerAssessments { get; set; }
+
+        public virtual ICollection<Test> PlayerTests { get; set; }
     }
 }

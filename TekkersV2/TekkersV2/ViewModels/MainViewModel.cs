@@ -17,8 +17,8 @@ namespace TekkersV2.ViewModels
         private Player _Player = new Player();
         private List<Player> _playersByNameList;
         private string _nameToFind;
-        private AssessmentViewModel _AssessVM;
-        private TestViewModel _TestVM;
+        private AssessmentViewModel _AssessVM = new AssessmentViewModel();
+        private TestViewModel _TestVM = new TestViewModel();
 
 
         public List<Player> PlayerList
