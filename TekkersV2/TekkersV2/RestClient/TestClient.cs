@@ -62,6 +62,7 @@ namespace Plugin.RestClient.TestClient
             return result.IsSuccessStatusCode;
         }
 
+
         public async Task<bool> DeleteAsync(string id)
         {
             var httpClient = new HttpClient();
@@ -80,6 +81,19 @@ namespace Plugin.RestClient.TestClient
             httpClient.DefaultRequestHeaders.Add("ZUMO-API-VERSION", "2.0.0");
 
             var json = await httpClient.GetStringAsync(WebServiceUrl + name);
+
+            var taskModels = JsonConvert.DeserializeObject<List<T>>(json);
+
+            return taskModels;
+        }
+
+        public async Task<List<T>> GetTestsByAssessmentAsync(string assessid)
+        {
+            var httpClient = new HttpClient();
+
+            httpClient.DefaultRequestHeaders.Add("ZUMO-API-VERSION", "2.0.0");
+
+            var json = await httpClient.GetStringAsync(WebServiceUrl + assessid);
 
             var taskModels = JsonConvert.DeserializeObject<List<T>>(json);
 

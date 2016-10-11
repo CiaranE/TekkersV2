@@ -1,13 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="TekkersV2.Views.StartAssessmentPage"
+             x:Class="TekkersV2.Views.AssessmentDetailsPage"
              xmlns:ViewModels ="clr-namespace:TekkersV2.ViewModels; assembly=TekkersV2">
 
-
-    <ContentPage.BindingContext>
-        <ViewModels:MainViewModel/>
-    </ContentPage.BindingContext>
+        <ContentPage.BindingContext>
+            <ViewModels:MainViewModel/>
+        </ContentPage.BindingContext>
 
     <StackLayout>
         <StackLayout Orientation="Horizontal">
@@ -16,23 +15,27 @@
         </StackLayout>
 
         <StackLayout Orientation="Vertical">
-            <Label Text="Please name the assessment:" FontSize="Large"/>
-            <Entry Text="{Binding AssessVM.AssessmentName, Mode=TwoWay}"/>
-        </StackLayout>
-
-        <StackLayout Orientation="Horizontal">
-            <Label Text="Date:" FontSize="Large"/>
-            <Label Text="{Binding AssessVM.AssessmentDate, StringFormat='{}{0:dd.MM.yyyy}'}" FontSize="Large"/>
+            <Label Text="{Binding AssessVM.AssessmentName, Mode=TwoWay}" FontSize="Large"/>
         </StackLayout>
 
         <StackLayout Orientation="Horizontal">
             <Label Text="These are the tests that make up the assessment. Each test is taken twice and the highest score will be recorded. Please read the instructions before starting each test."></Label>
         </StackLayout>
 
-
-        <StackLayout>
-            <Button Text="Start" Clicked="StartAssessmentEvent"></Button>
+        <StackLayout Orientation="Vertical">
+            <ListView x:Name="TestListView" ItemsSource="{Binding AssessVM.theTests}" ItemTapped="TestItemTapped">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text ="{Binding TestName}" FontSize="Large"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </StackLayout>
+
 
 </ContentPage>

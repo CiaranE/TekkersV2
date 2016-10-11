@@ -47,5 +47,12 @@ namespace TekkersV2.Services
 
             return listofTests;
         }
+
+        internal async Task<List<Test>> GetAssessmentTestsAsync(string assessid)
+        {
+            TestClient<Test> client = new TestClient<Test>();
+            var listOfAssessmentTests = await client.GetTestsByAssessmentAsync(assessid);
+            return listOfAssessmentTests;
+        }
     }
 }

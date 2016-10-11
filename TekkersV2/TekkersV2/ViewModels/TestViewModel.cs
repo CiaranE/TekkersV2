@@ -15,6 +15,7 @@ namespace TekkersV2.ViewModels
     public class TestViewModel : INotifyPropertyChanged
     {
         private List<Test> _TestList;
+        private Test _SelectedTest;
         private string _TestName;
         private DateTime _TestDate;
         private string _TestDescription;
@@ -27,6 +28,16 @@ namespace TekkersV2.ViewModels
             set
             {
                 _TestList = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public Test SelectedTest
+        {
+            get { return _SelectedTest; }
+            set
+            {
+                _SelectedTest = value;
                 OnPropertyChanged();
             }
         }

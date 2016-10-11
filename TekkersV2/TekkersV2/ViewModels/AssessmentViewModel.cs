@@ -131,10 +131,19 @@ namespace TekkersV2.ViewModels
 
         }
 
+        //GET ALL ASSESSMENTS TAKEN
         private async Task AllAssessmentsAsync()
         {
             var assessServices = new AssessmentServices();
             AssessmentList = await assessServices.GetAssessmentsAsync();
+        }
+
+        //GET THE TESTS OF A PARTICULAR ASSESSMENT
+        private async Task GetAssessmentTestsAsync(string assessid)
+        {
+            assessid = this.theAssessment.Id;
+            var testServices = new TestServices();
+            AssessMainViewModel.AssessVM.theTests = await testServices.GetAssessmentTestsAsync(assessid);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
