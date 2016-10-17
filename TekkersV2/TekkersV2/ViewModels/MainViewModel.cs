@@ -19,6 +19,7 @@ namespace TekkersV2.ViewModels
         private string _nameToFind;
         private AssessmentViewModel _AssessVM = new AssessmentViewModel();
         private TestViewModel _TestVM = new TestViewModel();
+        private Test _SelectedTest = new Test();
 
 
         public List<Player> PlayerList
@@ -81,6 +82,16 @@ namespace TekkersV2.ViewModels
             }
         }
 
+        public Test SelectedTest
+        {
+            get { return _SelectedTest; }
+            set
+            {
+                _SelectedTest = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         public Command PostCommand
         {
@@ -127,6 +138,18 @@ namespace TekkersV2.ViewModels
                 {
                     var playerServices = new PlayerServices();
                     PlayersByNameList = await playerServices.GetPlayerByNameAsync(_nameToFind);
+                });
+            }
+        }
+
+        public Command EnterTestScoreCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    var testServices = new TestServices();
+                    await testServices.PutTestScoreAsync(SelectedTest.Id, TestVM.TestScore);
                 });
             }
         }

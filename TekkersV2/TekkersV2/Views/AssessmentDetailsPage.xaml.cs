@@ -18,8 +18,8 @@ namespace TekkersV2.Views
 
         public AssessmentDetailsPage(MainViewModel mainViewModel)
         {
-            BindingContext = mainViewModel;
             InitializeComponent();
+            BindingContext = mainViewModel;
         }
 
         private async void TestItemTapped(object sender, EventArgs e)
@@ -31,9 +31,8 @@ namespace TekkersV2.Views
 
                 if (mainViewModel != null)
                 {
-                    mainViewModel.TestVM.SelectedTest = testPicked;
-
-                    //await Navigation.PushAsync(new SingleTestPage(mainViewModel));
+                    mainViewModel.SelectedTest = testPicked;
+                    await Navigation.PushAsync(new SingleTestPage(mainViewModel));
                 }
             }
         }

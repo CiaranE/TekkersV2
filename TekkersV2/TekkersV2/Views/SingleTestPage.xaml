@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TekkersV2.Views.SingleTestPage"
+             xmlns:ViewModels ="clr-namespace:TekkersV2.ViewModels; assembly=TekkersV2">
+
+    <ContentPage.BindingContext>
+        <ViewModels:MainViewModel/>
+    </ContentPage.BindingContext>
+
+    <StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="{Binding AssessVM.AssessmentName, Mode=TwoWay}" FontSize="Large"/>
+        </StackLayout>
+
+        <StackLayout Orientation="Vertical">
+            <Label Text="{Binding SelectedTest.TestName}" FontSize="Large"/>
+            <Label Text="{Binding SelectedTest.TestDescription}" FontSize="Large"/>
+        </StackLayout>
+
+        <StackLayout>
+            <Label Text="{Binding TestVM.Timer.Seconds, Mode=TwoWay}" FontSize="100" />
+            <Button Text="Start test" Clicked ="StartTimerEvent"></Button>
+            <Button Text="Restart" Clicked ="CancelTimerEvent"></Button>
+        </StackLayout>
+
+        <StackLayout>
+            <Label Text="Enter the score for the first attempt"/>
+            <Entry Text="{Binding TestVM.AttemptOne, Mode=TwoWay}"/>
+        </StackLayout>
+
+        <StackLayout>
+            <Label Text="Enter the score for the second attempt"/>
+            <Entry Text="{Binding TestVM.AttemptTwo, Mode=TwoWay}"/>
+        </StackLayout>
+
+        <StackLayout Orientation="Horizontal">
+            <Label Text="The score for this test is"/> 
+            <Label Text= "{Binding TestVM.TestScore, Mode=TwoWay}"/>
+        </StackLayout>
+        <Button Text="Add score" Clicked="SaveTestScoreEvent"></Button>
+    </StackLayout>
+
+
+
+</ContentPage>

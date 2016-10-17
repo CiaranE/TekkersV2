@@ -99,6 +99,23 @@ namespace Plugin.RestClient.TestClient
 
             return taskModels;
         }
+        
+        public async Task<bool> PutAsync(string id, int score)
+        {
+            var httpClient = new HttpClient();
+
+            httpClient.DefaultRequestHeaders.Add("ZUMO-API-VERSION", "2.0.0");
+
+            var json = JsonConvert.SerializeObject(score);
+
+            HttpContent httpContent = new StringContent(json);
+
+            httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            var result = await httpClient.PutAsync(WebServiceUrl + id +"/"+score, httpContent);
+
+            return result.IsSuccessStatusCode;
+        }
     }
 }
 

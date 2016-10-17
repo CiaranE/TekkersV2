@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TekkersV2.Models;
 using TekkersV2.Services;
+using Windows.UI.Xaml;
 using Xamarin.Forms;
 
 namespace TekkersV2.ViewModels
@@ -15,12 +16,14 @@ namespace TekkersV2.ViewModels
     public class TestViewModel : INotifyPropertyChanged
     {
         private List<Test> _TestList;
-        private Test _SelectedTest;
         private string _TestName;
         private DateTime _TestDate;
         private string _TestDescription;
         private int _TestScore;
-        private MainViewModel _MainViewModel;
+        private MainViewModel _TestMainViewModel;
+        private Countdown _Timer = new Countdown(30);
+        private int _AttemptOne = 0;
+        private int _AttemptTwo = 0;
 
         public List<Test> TestList
         {
@@ -28,16 +31,6 @@ namespace TekkersV2.ViewModels
             set
             {
                 _TestList = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public Test SelectedTest
-        {
-            get { return _SelectedTest; }
-            set
-            {
-                _SelectedTest = value;
                 OnPropertyChanged();
             }
         }
@@ -51,6 +44,7 @@ namespace TekkersV2.ViewModels
                 OnPropertyChanged();
             }
         }
+
 
         public DateTime TestDate
         {
@@ -84,10 +78,40 @@ namespace TekkersV2.ViewModels
 
         public MainViewModel TestMainViewModel
         {
-            get { return _MainViewModel; }
+            get { return _TestMainViewModel; }
             set
             {
-                _MainViewModel = value;
+                _TestMainViewModel = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public Countdown Timer
+        {
+            get { return _Timer; }
+            set
+            {
+                _Timer = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int AttemptOne
+        {
+            get { return _AttemptOne; }
+            set
+            {
+                _AttemptOne = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int AttemptTwo
+        {
+            get { return _AttemptTwo; }
+            set
+            {
+                _AttemptTwo = value;
                 OnPropertyChanged();
             }
         }
@@ -95,6 +119,12 @@ namespace TekkersV2.ViewModels
         public TestViewModel()
         {
 
+        }
+
+        public void StartTimer()
+        {
+            var timer = Timer;
+            timer.Start();
         }
 
         public async Task<List<Test>> GetTestsAsync()

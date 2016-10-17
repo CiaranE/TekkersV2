@@ -25,11 +25,6 @@
             <Label Text="{Binding AssessVM.AssessmentDate, StringFormat='{}{0:dd.MM.yyyy}'}" FontSize="Large"/>
         </StackLayout>
 
-        <StackLayout Orientation="Horizontal">
-            <Label Text="These are the tests that make up the assessment. Each test is taken twice and the highest score will be recorded. Please read the instructions before starting each test."></Label>
-        </StackLayout>
-
-
         <StackLayout>
             <Button Text="Start" Clicked="StartAssessmentEvent"></Button>
         </StackLayout>
