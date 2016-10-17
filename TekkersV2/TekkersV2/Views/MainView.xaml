@@ -11,7 +11,8 @@
     <StackLayout Orientation="Vertical">
         <Button Text="Add Player" Clicked="Button_OnClicked"></Button>
         <Button Text="Find Player" Clicked="FindPlayerButton"></Button>
-        <ListView x:Name="PlayerListView" ItemsSource="{Binding PlayerList}" ItemTapped="PlayerItemTapped">
+        <ListView x:Name="PlayerListView" ItemsSource="{Binding PlayerList}" ItemTapped="PlayerItemTapped" IsPullToRefreshEnabled="True" 
+                  RefreshCommand="{Binding RefreshCommand}" IsRefreshing="{Binding IsBusy, Mode=OneWay}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>

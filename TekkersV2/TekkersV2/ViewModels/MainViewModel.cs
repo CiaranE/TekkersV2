@@ -20,6 +20,7 @@ namespace TekkersV2.ViewModels
         private AssessmentViewModel _AssessVM = new AssessmentViewModel();
         private TestViewModel _TestVM = new TestViewModel();
         private Test _SelectedTest = new Test();
+        private bool _IsBusy = false;
 
 
         public List<Player> PlayerList
@@ -92,6 +93,16 @@ namespace TekkersV2.ViewModels
             }
         }
 
+        public bool IsBusy
+        {
+            get { return _IsBusy; }
+            set
+            {
+                    _IsBusy = value;
+                    OnPropertyChanged();
+            }
+        }
+
 
         public Command PostCommand
         {
@@ -101,6 +112,20 @@ namespace TekkersV2.ViewModels
                 {
                     var playerServices = new PlayerServices();
                     await playerServices.PostPlayerAsync(_Player);
+                });
+            }
+        }
+
+        public Command RefreshCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    IsBusy = true;
+                    var playerServices = new PlayerServices();
+                    PlayerList = await playerServices.GetPlayersAsync();
+                    IsBusy = false;
                 });
             }
         }

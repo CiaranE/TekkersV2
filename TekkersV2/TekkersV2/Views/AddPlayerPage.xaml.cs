@@ -22,6 +22,5 @@ namespace TekkersV2.Views
             InitializeComponent();
             BindingContext = theViewModel;
         }
-
     }
 }

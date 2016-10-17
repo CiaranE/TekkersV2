@@ -15,7 +15,7 @@
 
         <Button Text="Search" Command="{Binding FindByNameCommand}"></Button>
 
-        <ListView ItemsSource="{Binding PlayersByNameList}">
+        <ListView x:Name="FoundPlayersList" ItemsSource="{Binding PlayersByNameList}" ItemTapped="PlayerItemTapped">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
