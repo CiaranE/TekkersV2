@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TekkersV2.Views.SinglePlayerPage"
-             xmlns:ViewModels ="clr-namespace:TekkersV2.ViewModels; assembly=TekkersV2">
+             xmlns:ViewModels ="clr-namespace:TekkersV2.ViewModels; assembly=TekkersV2"
+             xmlns:chart ="clr-namespace:Syncfusion.SfChart.XForms;assembly=Syncfusion.SfChart.XForms">
 
 
     <ContentPage.BindingContext>
@@ -57,7 +58,7 @@
                FontSize="Large" />
         </StackLayout>
 
-            <StackLayout Orientation="Horizontal">
+        <StackLayout Orientation="Horizontal">
             <Label Text="Phone:"
                VerticalOptions="Center"
                FontAttributes="Bold"
@@ -66,9 +67,9 @@
                VerticalOptions="Center"
                FontAttributes="Bold"
                FontSize="Large" />
-            </StackLayout>
+        </StackLayout>
 
-            <StackLayout Orientation="Horizontal">
+        <StackLayout Orientation="Horizontal">
             <Label Text="Email:"
                VerticalOptions="Center"
                FontAttributes="Bold"
@@ -77,9 +78,39 @@
                VerticalOptions="Center"
                FontAttributes="Bold"
                FontSize="Large" />
-            </StackLayout>
+        </StackLayout>
+
+        <StackLayout>
+             <Button Text="Assess player" Clicked="AssessPlayerEvent"></Button>
+        </StackLayout>
+            
+        <StackLayout>
+            <Picker x:Name="ChartPicker" Title="Select chart:" SelectedIndex="2" SelectedIndexChanged="ShowChartEvent"/>
+        </StackLayout>
 
 
-        <Button Text="Assess player" Clicked="AssessPlayerEvent"></Button>
+        <StackLayout x:Name="ChartStack" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <Grid x:Name="ChartGrid" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" >
+                <chart:SfChart x:Name="chart" IsVisible="True" >
+                    <chart:SfChart.PrimaryAxis>
+                        <chart:CategoryAxis LabelRotationAngle = "-45">
+                            <chart:CategoryAxis.Title>
+                                <chart:ChartAxisTitle/>
+                            </chart:CategoryAxis.Title>
+                        </chart:CategoryAxis>
+                    </chart:SfChart.PrimaryAxis>
+
+                    <chart:SfChart.SecondaryAxis>
+                        <chart:NumericalAxis>
+                            <chart:NumericalAxis.Title>
+                                <chart:ChartAxisTitle/>
+                            </chart:NumericalAxis.Title>
+                        </chart:NumericalAxis>
+                    </chart:SfChart.SecondaryAxis>
+                </chart:SfChart>
+            </Grid>
+        </StackLayout>
+
+
     </StackLayout>
 </ContentPage>

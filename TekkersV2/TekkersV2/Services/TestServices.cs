@@ -60,5 +60,12 @@ namespace TekkersV2.Services
             TestClient<Test> client = new TestClient<Test>();
             await client.PutAsync(id, testScore);
         }
+
+        public async Task<List<Test>> GetAllTestsForPlayerAsync(string playerid)
+        {
+            TestClient<Test> client = new TestClient<Test>();
+            List<Test> playerTests = await client.GetAllTestsForPlayerAsync(playerid);
+            return playerTests;
+        }
     }
 }

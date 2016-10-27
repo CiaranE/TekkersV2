@@ -4,6 +4,7 @@ using System.Linq;
 
 using Foundation;
 using UIKit;
+using Syncfusion.SfChart.XForms.iOS.Renderers;
 
 namespace TekkersV2.iOS
 {
@@ -23,6 +24,7 @@ namespace TekkersV2.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+            new SfChartRenderer();
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

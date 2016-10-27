@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Syncfusion.SfChart.XForms.WinPhone;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace TekkersV2.WinPhone
         public MainPage()
         {
             this.InitializeComponent();
-
+            new SfChartRenderer();
             this.NavigationCacheMode = NavigationCacheMode.Required;
 
             LoadApplication(new TekkersV2.App());

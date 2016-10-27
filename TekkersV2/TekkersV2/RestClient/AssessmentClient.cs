@@ -13,7 +13,8 @@ namespace Plugin.RestClient.AssessmentClient
     /// </summary>
     public class AssessmentClient<T>
     {
-        private const string WebServiceUrl = "http://192.168.0.12/TekkersService/tables/assessment/";
+        //private const string WebServiceUrl = "http://192.168.0.12/TekkersService/tables/assessment/";
+        private const string WebServiceUrl = "http://tekkers.azurewebsites.net/tables/assessment/";
 
         public async Task<List<T>> GetAsync()
         {

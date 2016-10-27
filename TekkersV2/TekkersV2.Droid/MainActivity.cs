@@ -6,6 +6,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Syncfusion.SfChart.XForms.Droid;
 
 namespace TekkersV2.Droid
 {
@@ -17,6 +18,7 @@ namespace TekkersV2.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
+            new SfChartRenderer();
             LoadApplication(new App());
         }
     }

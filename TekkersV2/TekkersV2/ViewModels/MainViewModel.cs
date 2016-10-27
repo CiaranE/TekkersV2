@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Syncfusion.SfChart.XForms;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -14,6 +16,7 @@ namespace TekkersV2.ViewModels
     public class MainViewModel : INotifyPropertyChanged
     {
         private List<Player> _playerList;
+        private List<Test> _playerTestList;
         private Player _Player = new Player();
         private List<Player> _playersByNameList;
         private string _nameToFind;
@@ -21,6 +24,8 @@ namespace TekkersV2.ViewModels
         private TestViewModel _TestVM = new TestViewModel();
         private Test _SelectedTest = new Test();
         private bool _IsBusy = false;
+        private ObservableCollection<ChartViewModel> _DataPoints { get; set; }
+        private SfChart _Chart = new SfChart();
 
 
         public List<Player> PlayerList
@@ -29,6 +34,18 @@ namespace TekkersV2.ViewModels
             set
             {
                 _playerList = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public List<Test> PlayerTestList
+        {
+            get {
+                return _playerTestList;
+                }
+            set
+            {
+                _playerTestList = value;
                 OnPropertyChanged();
             }
         }
@@ -59,6 +76,26 @@ namespace TekkersV2.ViewModels
             set
             {
                 _Player = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public SfChart Chart
+        {
+            get { return _Chart; }
+            set
+            {
+                _Chart = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<ChartViewModel> DataPoints
+        {
+            get { return _DataPoints; }
+            set
+            {
+                _DataPoints = value;
                 OnPropertyChanged();
             }
         }
@@ -167,6 +204,18 @@ namespace TekkersV2.ViewModels
             }
         }
 
+        public Command GetTestsForPlayerAsyncCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    var testServices = new TestServices();
+                    PlayerTestList = await testServices.GetAllTestsForPlayerAsync(_Player.Id);
+                });
+            }
+        }
+
         public Command EnterTestScoreCommand
         {
             get
@@ -188,6 +237,13 @@ namespace TekkersV2.ViewModels
         {
             var playerServices = new PlayerServices();
             PlayerList = await playerServices.GetPlayersAsync();
+        }
+
+        public async Task<List<Test>> GetTestsForPlayer(string playerid)
+        {
+            var testServices = new TestServices();
+            PlayerTestList = await testServices.GetAllTestsForPlayerAsync(playerid);
+            return PlayerTestList;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

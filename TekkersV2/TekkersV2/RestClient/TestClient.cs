@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using TekkersV2.Models;
 
 namespace Plugin.RestClient.TestClient
 {
@@ -13,7 +14,8 @@ namespace Plugin.RestClient.TestClient
     /// </summary>
     public class TestClient<T>
     {
-        private const string WebServiceUrl = "http://192.168.0.12/TekkersService/tables/test/";
+        //private const string WebServiceUrl = "http://192.168.0.12/TekkersService/tables/test/";
+        private const string WebServiceUrl = "http://tekkers.azurewebsites.net/tables/Test/";
 
         public async Task<List<T>> GetAsync()
         {
@@ -115,6 +117,19 @@ namespace Plugin.RestClient.TestClient
             var result = await httpClient.PutAsync(WebServiceUrl + id +"/"+score, httpContent);
 
             return result.IsSuccessStatusCode;
+        }
+
+        public async Task<List<T>> GetAllTestsForPlayerAsync(string playerid)
+        {
+            var httpClient = new HttpClient();
+
+            httpClient.DefaultRequestHeaders.Add("ZUMO-API-VERSION", "2.0.0");
+
+            var json = await httpClient.GetStringAsync(WebServiceUrl + "GetAllTestsForPlayerAsync/"+playerid);
+
+            var results = JsonConvert.DeserializeObject<List<T>>(json);
+
+            return results;
         }
     }
 }

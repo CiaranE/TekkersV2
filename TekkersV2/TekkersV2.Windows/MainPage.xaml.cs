@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Syncfusion.SfChart.XForms.WinRT;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace TekkersV2.Windows
         public MainPage()
         {
             this.InitializeComponent();
-
+            new SfChartRenderer();
             LoadApplication(new TekkersV2.App());
         }
     }

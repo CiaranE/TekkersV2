@@ -13,7 +13,8 @@ namespace Plugin.RestClient
     /// </summary>
     public class PlayerClient<T>
     {
-        private const string WebServiceUrl = "http://192.168.0.12/TekkersService/tables/player/";
+        //private const string WebServiceUrl = "http://192.168.0.12/TekkersService/tables/player/"; //RUN LOCALLY 
+        private const string WebServiceUrl = "http://tekkers.azurewebsites.net/tables/player/";
 
         public async Task<List<T>> GetAsync()
         {
