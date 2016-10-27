@@ -19,9 +19,9 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout Orientation="Horizontal" Padding="12,6">
-                            <Label Text="{Binding FirstName}" FontSize="40"/>
-                            <Label Text="{Binding LastName}" FontSize="40"/>
+                        <StackLayout Orientation="Horizontal" >
+                            <Label Text="{Binding FirstName}" />
+                            <Label Text="{Binding LastName}" />
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>

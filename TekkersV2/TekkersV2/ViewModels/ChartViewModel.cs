@@ -15,6 +15,7 @@ namespace TekkersV2.ViewModels
     {
         private string _Date;
         private double _Score;
+        private string _TestName;
 
         public string Date
         {
@@ -36,14 +37,26 @@ namespace TekkersV2.ViewModels
             }
         }
 
+        public string TestName
+        {
+            get { return _TestName; }
+            set
+            {
+                _TestName = value;
+                OnPropertyChanged();
+            }
+
+        }
+
         public ChartViewModel()
         {
         }
 
-        public ChartViewModel(string XVal, double YVal)        //Constructor for all player tests chart
+        public ChartViewModel(string XVal, double YVal, string TName)        //Constructor for all player tests chart
         {
             this.Date = XVal;
-            this.Score = YVal; 
+            this.Score = YVal;
+            this.TestName = TName;
         }
 
 

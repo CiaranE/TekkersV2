@@ -17,9 +17,9 @@
                 <DataTemplate>
                     <ViewCell>
                         <StackLayout Orientation="Horizontal">
-                            <Label Text ="{Binding FirstName}" FontSize="Large"/>
-                            <Label Text ="{Binding LastName}" FontSize="Large"/>
-                            <Label Text ="{Binding PhoneNum}" FontSize="Medium"/>
+                            <Label Text ="{Binding FirstName}" />
+                            <Label Text ="{Binding LastName}" />
+                            <Label Text ="{Binding PhoneNum}" />
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>

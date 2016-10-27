@@ -90,7 +90,7 @@ namespace TekkersV2.Views
                     string dateFormat = "dd/MM/yyyy";
                     foreach (var t in playertestdata)
                     {
-                        ChartViewModel c = new ChartViewModel(t.TestDate.ToString(dateFormat), t.TestScore);
+                        ChartViewModel c = new ChartViewModel(t.TestDate.ToString(dateFormat), t.TestScore, t.TestName);
                         theViewModel.DataPoints.Add(c);
                     }
 
@@ -103,12 +103,19 @@ namespace TekkersV2.Views
                     chart.SecondaryAxis = new NumericalAxis() { Minimum = 0, Maximum = 100, Interval = 5 };
                     chart.SecondaryAxis.Title.Text = "Score";
                     chart.Title.Text = p.FirstName+"'s test scores";
-                    chart.Series.Add(new LineSeries()
+                    chart.Series.Add(new ColumnSeries()
                     {
-                        ItemsSource = theViewModel.DataPoints,
+                        ItemsSource = theViewModel.DataPoints.Where(cvm => cvm.TestName.Contains("Toe Taps")),
                         XBindingPath = "Date",
                         YBindingPath = "Score",
-                        Label = "Test"
+                        Label = "Toe Taps"
+                    });
+                    chart.Series.Add(new ColumnSeries()
+                    {
+                        ItemsSource = theViewModel.DataPoints.Where(cvm => cvm.TestName.Contains("Foundations")),
+                        XBindingPath = "Date",
+                        YBindingPath = "Score",
+                        Label = "Foundations"
                     });
                     ChartGrid.Children.Add(chart);
                     break;

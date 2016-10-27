@@ -17,67 +17,43 @@
         
         <StackLayout Orientation="Horizontal">
             <Label Text="Name:"
-               VerticalOptions="Center"
-               FontAttributes="Bold"
-               FontSize="Large" />
+               VerticalOptions="Center"/>
             <Label Text="{Binding Player.FirstName}"
-               VerticalOptions="Center"
-               FontAttributes="Bold"
-               FontSize="Large" />
+               VerticalOptions="Center"/>
 
             <Label Text="{Binding Player.LastName}"
-               VerticalOptions="Center"
-               FontAttributes="Bold"
-               FontSize="Large" />
+               VerticalOptions="Center"/>
         </StackLayout>
 
         <StackLayout Orientation="Horizontal">
             <Label Text="Date of birth:"
-               VerticalOptions="Center"
-               FontAttributes="Bold"
-               FontSize="Large" />
+               VerticalOptions="Center"/>
             <Label Text="{Binding Player.DateOfBirth, StringFormat='{}{0:dd.MM.yyyy}'}"
-               VerticalOptions="Center"
-               FontAttributes="Bold"
-               FontSize="Large" />
+               VerticalOptions="Center"/>
         </StackLayout>
 
         <StackLayout Orientation="Horizontal">
             <Label Text="Guardian:"
-               VerticalOptions="Center"
-               FontAttributes="Bold"
-               FontSize="Large" />
+               VerticalOptions="Center"/>
             <Label Text="{Binding Player.ParentFName}"
-               VerticalOptions="Center"
-               FontAttributes="Bold"
-               FontSize="Large" />
+               VerticalOptions="Center"/>
 
             <Label Text="{Binding Player.ParentLName}"
-               VerticalOptions="Center"
-               FontAttributes="Bold"
-               FontSize="Large" />
+               VerticalOptions="Center"/>
         </StackLayout>
 
         <StackLayout Orientation="Horizontal">
             <Label Text="Phone:"
-               VerticalOptions="Center"
-               FontAttributes="Bold"
-               FontSize="Large" />
+               VerticalOptions="Center" />
             <Label Text="{Binding Player.PhoneNum}"
-               VerticalOptions="Center"
-               FontAttributes="Bold"
-               FontSize="Large" />
+               VerticalOptions="Center"/>
         </StackLayout>
 
         <StackLayout Orientation="Horizontal">
             <Label Text="Email:"
-               VerticalOptions="Center"
-               FontAttributes="Bold"
-               FontSize="Large" />
+               VerticalOptions="Center" />
             <Label Text="{Binding Player.Email}"
-               VerticalOptions="Center"
-               FontAttributes="Bold"
-               FontSize="Large" />
+               VerticalOptions="Center"/>
         </StackLayout>
 
         <StackLayout>
