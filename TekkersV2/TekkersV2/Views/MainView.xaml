@@ -9,8 +9,9 @@
     </ContentPage.BindingContext>
 
     <StackLayout Orientation="Vertical">
-        <Button Text="Add Player" Clicked="Button_OnClicked"></Button>
+        <Button Text="Add Player" Clicked="AddPlayerEvent"></Button>
         <Button Text="Find Player" Clicked="FindPlayerButton"></Button>
+        <Button Text="See reports" Clicked="GoToReporting"></Button>
         <ListView x:Name="PlayerListView" ItemsSource="{Binding PlayerList}" ItemTapped="PlayerItemTapped" IsPullToRefreshEnabled="True" 
                   RefreshCommand="{Binding RefreshCommand}" IsRefreshing="{Binding IsBusy, Mode=OneWay}">
             <ListView.ItemTemplate>
@@ -20,6 +21,7 @@
                             <Label Text ="{Binding FirstName}" />
                             <Label Text ="{Binding LastName}" />
                             <Label Text ="{Binding PhoneNum}" />
+                            <Label Text ="{Binding PlayersTeam.TeamName}"/>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>

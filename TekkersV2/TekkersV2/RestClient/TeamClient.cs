@@ -1,20 +1,18 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 
-namespace Plugin.RestClient
+namespace TekkersV2.RestClient
 {
-    /// <summary>
-    /// RestClient implements methods for calling CRUD operations
-    /// using HTTP.
-    /// </summary>
-    public class PlayerClient<T>
+    public class TeamClient<T>
     {
-        //private const string WebServiceUrl = "http://192.168.0.12/TekkersService/tables/player/"; //RUN LOCALLY 
-        private const string WebServiceUrl = "http://tekkers.azurewebsites.net/tables/player/";
+        //private const string WebServiceUrl = "http://192.168.0.12/TekkersService/tables/team/";
+        private const string WebServiceUrl = "http://tekkers.azurewebsites.net/tables/team/";
 
         public async Task<List<T>> GetAsync()
         {
@@ -24,9 +22,9 @@ namespace Plugin.RestClient
 
             var json = await httpClient.GetStringAsync(WebServiceUrl);
 
-            var taskModels = JsonConvert.DeserializeObject<List<T>>(json);
+            var teams = JsonConvert.DeserializeObject<List<T>>(json);
 
-            return taskModels;
+            return teams;
         }
 
         public async Task<bool> PostAsync(T t)
@@ -74,30 +72,30 @@ namespace Plugin.RestClient
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<List<T>> GetPlayerByName(string name)
+        public async Task<List<T>> GetTeamByNameAsync(string teamname)
         {
             var httpClient = new HttpClient();
 
             httpClient.DefaultRequestHeaders.Add("ZUMO-API-VERSION", "2.0.0");
 
-            var json = await httpClient.GetStringAsync(WebServiceUrl+"GetPlayerByName/"+name);
+            var json = await httpClient.GetStringAsync(WebServiceUrl + teamname);
 
-            var results = JsonConvert.DeserializeObject<List<T>>(json);
+            var team = JsonConvert.DeserializeObject<List<T>>(json);
 
-            return results;
+            return team;
         }
 
-        public async Task<List<T>> GetPlayersByAge(int age)
+        public async Task<List<T>> GetTeamsByAgeAsync(int teamage)
         {
             var httpClient = new HttpClient();
 
             httpClient.DefaultRequestHeaders.Add("ZUMO-API-VERSION", "2.0.0");
 
-            var json = await httpClient.GetStringAsync(WebServiceUrl + age);
+            var json = await httpClient.GetStringAsync(WebServiceUrl + teamage);
 
-            var results = JsonConvert.DeserializeObject<List<T>>(json);
+            var teams = JsonConvert.DeserializeObject<List<T>>(json);
 
-            return results;
+            return teams;
         }
     }
 }

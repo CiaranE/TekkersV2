@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TekkersV2.Views.EditPlayerPage"
-             xmlns:ViewModels ="clr-namespace:TekkersV2.ViewModels; assembly=TekkersV2">
+             xmlns:ViewModels ="clr-namespace:TekkersV2.ViewModels; assembly=TekkersV2"
+             xmlns:Controls="clr-namespace:TekkersV2.Controls; assembly=TekkersV2">
 
 
     <ContentPage.BindingContext>
@@ -31,6 +32,9 @@
         <Label Text="Email"/>
         <Entry Text="{Binding Player.Email, Mode=TwoWay}" Keyboard="Email"/>
 
-        <Button Text="Save" Command="{Binding EditCommand}" Clicked="SaveButtonClicked"></Button>
+        <Label Text="Change player's team"/>
+        <Controls:BindablePicker x:Name="EditTeamPicker" ItemsSource ="{Binding Path = TeamVM.TeamsList}" Title="{Binding Player.PlayersTeam.TeamName}"  DisplayMemberPath="TeamName" SelectedItem ="{Binding Path = Player.PlayersTeam, Mode=TwoWay}"/>
+
+        <Button Text="Save" Clicked="SaveButtonClicked"></Button>
     </StackLayout>
 </ContentPage>

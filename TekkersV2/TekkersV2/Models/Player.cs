@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,8 +25,12 @@ namespace TekkersV2.Models
 
         public string PhoneNum { get; set; }
 
+        public int AgeGroup { get; set; }
+
         public virtual ICollection<Assessment> PlayerAssessments { get; set; }
 
         public virtual ICollection<Test> PlayerTests { get; set; }
+
+        public virtual Team PlayersTeam { get; set; }
     }
 }

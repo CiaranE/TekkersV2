@@ -73,8 +73,8 @@ namespace TekkersV2.Models
 
         public void Cancel()
         {
-            Seconds = 30;
             this.Stop();
+            Seconds = 30;
             //Seconds = 30;
             //reset the timer here
         }

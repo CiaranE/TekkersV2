@@ -14,7 +14,7 @@
 
         <Button Text="Edit player" Clicked="EditPlayerEvent"></Button>
         <Button Text="Delete player" Clicked="DeletePlayerEvent"></Button>
-        
+
         <StackLayout Orientation="Horizontal">
             <Label Text="Name:"
                VerticalOptions="Center"/>
@@ -56,7 +56,12 @@
                VerticalOptions="Center"/>
         </StackLayout>
 
-        <StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Team:" VerticalOptions="Center"/>
+            <Label Text="{Binding Player.PlayersTeam.TeamName}"/>
+        </StackLayout>
+
+    <StackLayout>
              <Button Text="Assess player" Clicked="AssessPlayerEvent"></Button>
         </StackLayout>
             

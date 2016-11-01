@@ -40,11 +40,21 @@ namespace TekkersV2.Services
         }
 
         //Find a player by their surname
-        public async Task<List<Player>> GetPlayerByNameAsync(string name)
+        public async Task<List<Player>> GetPlayerByName(string name)
         {
             PlayerClient<Player> client = new PlayerClient<Player>();
 
-            var listofPlayers = await client.GetByNameAsync(name);
+            var listofPlayers = await client.GetPlayerByName(name);
+
+            return listofPlayers;
+        }
+
+        //Get players by an age
+        public async Task<List<Player>> GetPlayersByAgeAsync(int age)
+        {
+            PlayerClient<Player> client = new PlayerClient<Player>();
+
+            var listofPlayers = await client.GetPlayersByAge(age);
 
             return listofPlayers;
         }

@@ -2,14 +2,15 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TekkersV2.Views.AddPlayerPage"
-             xmlns:ViewModels ="clr-namespace:TekkersV2.ViewModels; assembly=TekkersV2">
-    
+             xmlns:ViewModels ="clr-namespace:TekkersV2.ViewModels; assembly=TekkersV2"
+             xmlns:Controls ="clr-namespace:TekkersV2.Controls; assembly=TekkersV2">
+
 
     <ContentPage.BindingContext>
         <ViewModels:MainViewModel/>
     </ContentPage.BindingContext>
 
-    <StackLayout Orientation="Vertical" Spacing="18">
+    <StackLayout Orientation="Vertical">
         <Label Text="Name"/>
         <Entry Text="{Binding Player.FirstName, Mode=TwoWay}"/>
 
@@ -17,7 +18,7 @@
         <Entry Text="{Binding Player.LastName,  Mode=TwoWay}"/>
 
         <Label Text="Date of birth"/>
-        <DatePicker Date="{Binding Player.DateOfBirth, Mode=TwoWay}" />
+        <DatePicker x:Name="DatePicker" Date="{Binding Player.DateOfBirth, Mode=TwoWay}" />
 
         <Label Text="Guardian name"/>
         <Entry Text="{Binding Player.ParentFName, Mode=TwoWay}"/>
@@ -31,6 +32,9 @@
         <Label Text="Email"/>
         <Entry Text="{Binding Player.Email, Mode=TwoWay}" Keyboard="Email"/>
 
-        <Button Text="Add player" Command="{Binding PostCommand}"></Button>
+        <Label Text="Pick player's team" />
+        <Controls:BindablePicker x:Name="TeamPicker" ItemsSource="{Binding Path= TeamVM.TeamsList}" DisplayMemberPath="TeamName" SelectedItem="{Binding Path = TeamVM.Team, Mode=TwoWay}" />
+
+        <Button Text="Add player" Clicked="AddPlayerEvent"></Button>
     </StackLayout>
 </ContentPage>

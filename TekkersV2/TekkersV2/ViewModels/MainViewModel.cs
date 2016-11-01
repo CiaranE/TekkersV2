@@ -19,9 +19,12 @@ namespace TekkersV2.ViewModels
         private List<Test> _playerTestList;
         private Player _Player = new Player();
         private List<Player> _playersByNameList;
+        private List<Player> _playersByAgeList;
         private string _nameToFind;
         private AssessmentViewModel _AssessVM = new AssessmentViewModel();
         private TestViewModel _TestVM = new TestViewModel();
+        private ChartViewModel _ChartVM = new ChartViewModel();
+        private TeamViewModel _TeamVM = new TeamViewModel();
         private Test _SelectedTest = new Test();
         private bool _IsBusy = false;
         private ObservableCollection<ChartViewModel> _DataPoints { get; set; }
@@ -66,6 +69,16 @@ namespace TekkersV2.ViewModels
             set
             {
                 _nameToFind = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public List<Player> PlayersByAgeList
+        {
+            get { return _playersByAgeList; }
+            set
+            {
+                _playersByAgeList = value;
                 OnPropertyChanged();
             }
         }
@@ -116,6 +129,26 @@ namespace TekkersV2.ViewModels
             set
             {
                 _TestVM = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ChartViewModel ChartVM
+        {
+            get { return _ChartVM; }
+            set
+            {
+                _ChartVM = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public TeamViewModel TeamVM
+        {
+            get { return _TeamVM; }
+            set
+            {
+                _TeamVM = value;
                 OnPropertyChanged();
             }
         }
@@ -199,7 +232,7 @@ namespace TekkersV2.ViewModels
                 return new Command(async () =>
                 {
                     var playerServices = new PlayerServices();
-                    PlayersByNameList = await playerServices.GetPlayerByNameAsync(_nameToFind);
+                    PlayersByNameList = await playerServices.GetPlayerByName(_nameToFind);
                 });
             }
         }
@@ -231,6 +264,7 @@ namespace TekkersV2.ViewModels
         public MainViewModel()
         {
             InitialiseDataAsync();
+            this.TeamVM.GetTeamsCommand.Execute(null);
         }
 
         private async Task InitialiseDataAsync()
@@ -244,6 +278,13 @@ namespace TekkersV2.ViewModels
             var testServices = new TestServices();
             PlayerTestList = await testServices.GetAllTestsForPlayerAsync(playerid);
             return PlayerTestList;
+        }
+
+        public async Task<List<Player>> GetPlayersByAgeList(int age)
+        {
+            var playerServices = new PlayerServices();
+            PlayersByAgeList = await playerServices.GetPlayersByAgeAsync(age);
+            return PlayersByAgeList;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

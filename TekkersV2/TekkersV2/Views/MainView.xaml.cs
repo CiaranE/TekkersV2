@@ -13,7 +13,7 @@ namespace TekkersV2.Views
             InitializeComponent();
         }
 
-        private async void Button_OnClicked(object sender, EventArgs e)
+        private async void AddPlayerEvent(object sender, EventArgs e)
         {
            await Navigation.PushAsync(new AddPlayerPage());
         }
@@ -43,6 +43,12 @@ namespace TekkersV2.Views
                     await Navigation.PushAsync(new SinglePlayerPage(mainViewModel));
                 }
             }
+        }
+
+        private async void GoToReporting(object sender, EventArgs e)
+        {
+            var mainViewModel = BindingContext as MainViewModel;
+            await Navigation.PushAsync(new ReportingPage(mainViewModel));
         }
     }
 }

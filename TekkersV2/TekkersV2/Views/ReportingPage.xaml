@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TekkersV2.Views.ReportingPage"
+             xmlns:ViewModels ="clr-namespace:TekkersV2.ViewModels; Assembly=TekkersV2"
+             xmlns:chart ="clr-namespace:Syncfusion.SfChart.XForms;assembly=Syncfusion.SfChart.XForms">
+
+<ContentPage.BindingContext>
+    <ViewModels:MainViewModel/>
+</ContentPage.BindingContext>
+
+    <StackLayout>
+        <StackLayout>
+            <Picker x:Name="FormPicker" Title="Which chart do you want to create" SelectedIndex="1" SelectedIndexChanged="ShowChartFormEvent"/>
+        </StackLayout>
+
+        <StackLayout x:Name="FormHolder" IsVisible="False">
+            <Label Text="Age:"/>
+            <Entry Text="{Binding ChartVM.AgeGroup, Mode=TwoWay}"/>
+            <Button Text="Make chart" Clicked="MakeChart"></Button>
+        </StackLayout>
+
+        <StackLayout>
+            <ListView x:Name="ListView" IsVisible="False" ItemsSource="{Binding PlayersByAgeList}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text ="{Binding FirstName}" />
+                                <Label Text ="{Binding LastName}" />
+                                <Label Text ="{Binding AgeGroup}" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </StackLayout>
+
+
+
+</ContentPage>
