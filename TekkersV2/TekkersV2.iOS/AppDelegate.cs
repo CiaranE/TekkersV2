@@ -5,6 +5,7 @@ using System.Linq;
 using Foundation;
 using UIKit;
 using Syncfusion.SfChart.XForms.iOS.Renderers;
+using Syncfusion.SfDataGrid.XForms.iOS;
 
 namespace TekkersV2.iOS
 {
@@ -25,6 +26,7 @@ namespace TekkersV2.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             new SfChartRenderer();
+            SfDataGridRenderer.Init();
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

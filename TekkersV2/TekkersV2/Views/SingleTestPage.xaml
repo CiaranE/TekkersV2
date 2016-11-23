@@ -18,27 +18,28 @@
             <Label Text="{Binding SelectedTest.TestDescription}" FontSize="Large"/>
         </StackLayout>
 
-        <StackLayout>
+        <StackLayout Orientation="Horizontal">
             <Label Text="{Binding TestVM.Timer.Seconds, Mode=TwoWay}" FontSize="100" />
-            <Button Text="Start test" Clicked ="StartTimerEvent"></Button>
-            <Button Text="Restart" Clicked ="CancelTimerEvent"></Button>
+            <Button x:Name="FirstAttemptButton"  Text="Start first attempt" Clicked ="RunTheTest" IsVisible="True"></Button>
+            <Button Text="Restart" Clicked ="CancelTimerEvent" IsVisible="True"></Button>
+            <Button x:Name="SecondAttemptButton" Text="Start second attempt" Clicked="RunAgain" IsVisible="False"/>
         </StackLayout>
 
-        <StackLayout>
+        <StackLayout x:Name="TestAttemptOne" IsVisible="False" Orientation="Vertical">
             <Label Text="Enter the score for the first attempt"/>
             <Entry Text="{Binding TestVM.AttemptOne, Mode=TwoWay}"/>
         </StackLayout>
+        
+        <StackLayout x:Name="ShowAttemptOneScore" Orientation= "Horizontal" IsVisible="False">
+            <Label Text="The score for attempt one is"/>
+            <Label Text="{Binding TestVM.AttemptOne, Mode=TwoWay}"/>
+        </StackLayout>
 
-        <StackLayout>
+        <StackLayout x:Name="TestAttemptTwo" IsVisible="False">
             <Label Text="Enter the score for the second attempt"/>
             <Entry Text="{Binding TestVM.AttemptTwo, Mode=TwoWay}"/>
+            <Button Text="Save test score" Clicked="SaveTestScoreEvent"/>
         </StackLayout>
-
-        <StackLayout Orientation="Horizontal">
-            <Label Text="The score for this test is"/> 
-            <Label Text= "{Binding TestVM.TestScore, Mode=TwoWay}"/>
-        </StackLayout>
-        <Button Text="Add score" Clicked="SaveTestScoreEvent"></Button>
     </StackLayout>
 
 

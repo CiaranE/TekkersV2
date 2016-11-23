@@ -18,6 +18,8 @@ namespace TekkersV2.ViewModels
         private double _Score;
         private string _TestName;
         private int _AgeGroup;
+        private Team _theTeam;
+        private List<Player> _PlayersOnTeam = new List<Player>();
 
         public string Date
         {
@@ -55,6 +57,26 @@ namespace TekkersV2.ViewModels
             set
             {
                 _AgeGroup = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public Team theTeam
+        {
+            get { return _theTeam; }
+            set
+            {
+                _theTeam = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public List<Player> PlayersOnTeam
+        {
+            get { return _PlayersOnTeam; }
+            set
+            {
+                _PlayersOnTeam = value;
                 OnPropertyChanged();
             }
         }

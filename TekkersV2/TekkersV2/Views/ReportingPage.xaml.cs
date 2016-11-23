@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TekkersV2.Models;
 using TekkersV2.ViewModels;
 using Xamarin.Forms;
 
@@ -46,7 +47,11 @@ namespace TekkersV2.Views
         private async void MakeChart(object sender, EventArgs e)
         {
             var theViewModel = BindingContext as MainViewModel;
-            await theViewModel.GetPlayersByAgeList(theViewModel.ChartVM.AgeGroup);
+            theViewModel.PlayersByAgeList =  await theViewModel.GetPlayersByAgeList(theViewModel.ChartVM.AgeGroup);
+            theViewModel.TeamVM.theTeam = ChartTeamPicker.SelectedItem as Team;
+            theViewModel.TeamVM.GetPlayersOnTeamCommand.Execute(theViewModel.TeamVM.theTeam.Id);
+            var testsForTeam = theViewModel.TestVM.TestList;
+            testsForTeam = await theViewModel.TestVM.GetTestsForTeam(theViewModel.TeamVM.theTeam.Id);
             ListView.IsVisible = true;
         }
     }

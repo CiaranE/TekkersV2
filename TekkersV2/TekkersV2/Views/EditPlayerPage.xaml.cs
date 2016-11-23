@@ -28,8 +28,16 @@ namespace TekkersV2.Views
             var theViewModel = BindingContext as MainViewModel;
             var playerTeam = theViewModel.Player.PlayersTeam;
             playerTeam = EditTeamPicker.SelectedItem as Team;
-            theViewModel.EditCommand.Execute(theViewModel.Player);
-            await Navigation.PopAsync();
+            theViewModel.Player.AgeGroup = theViewModel.Player.DateOfBirth.Year;
+            if (playerTeam.TeamAgeGroup == theViewModel.Player.DateOfBirth.Year)
+            {
+                theViewModel.EditCommand.Execute(theViewModel.Player);
+                await Navigation.PopAsync();
+            }
+            else
+            {
+                await DisplayAlert("Notification", "The player is the wrong age for this  team", "OK");
+            }
         }
     }
 }

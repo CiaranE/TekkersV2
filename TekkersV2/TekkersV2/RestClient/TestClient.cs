@@ -131,6 +131,19 @@ namespace Plugin.RestClient.TestClient
 
             return results;
         }
+
+        public async Task<List<T>> GetAllTestsForTeamAsync(string teamid)
+        {
+            var httpClient = new HttpClient();
+
+            httpClient.DefaultRequestHeaders.Add("ZUMO-API-VERSION", "2.0.0");
+
+            var json = await httpClient.GetStringAsync(WebServiceUrl + "GetAllTestsForTeamAsync/" + teamid);
+
+            var results = JsonConvert.DeserializeObject<List<T>>(json);
+
+            return results;
+        }
     }
 }
 

@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TekkersV2.Views.AddTeamPage"
+             xmlns:Viewmodels ="clr-namespace:TekkersV2.ViewModels; assembly=TekkersV2"
+             xmlns:Controls ="clr-namespace:TekkersV2.Controls;assembly=TekkersV2"
+             xmlns:datagrid="clr-namespace:Syncfusion.SfDataGrid.XForms;assembly=Syncfusion.SfDataGrid.XForms">
+
+    <ContentPage.BindingContext>
+        <Viewmodels:MainViewModel/>
+    </ContentPage.BindingContext>
+
+    <StackLayout>
+        <StackLayout Orientation="Vertical">
+            <Entry Text="{Binding TeamVM.theTeam.TeamName, Mode=TwoWay}"/>
+            <Picker x:Name="TeamYearPicker" SelectedIndex="1" SelectedIndexChanged="SetYearEvent" Title="Team for players born in year:"/>
+            <!--<Controls:BindablePicker x:Name="TeamYearPicker" ItemsSource="{Binding Path = TeamVM.YearsList}" DisplayMemberPath="Items" SelectedItem="{Binding Path=TeamVM.Team.TeamAgeGroup, Mode=TwoWay}"/>-->
+            <Button Text="Add team" Clicked="AddTeamEvent"/>
+        </StackLayout>
+
+        <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <datagrid:SfDataGrid x:Name="TeamDataGrid"
+                                 ItemsSource="{Binding TeamVM.TeamsList, Mode=TwoWay}"
+                             VerticalOptions="FillAndExpand"
+                             AutoGenerateColumns="False"
+                                 ColumnSizer="Star"
+                                 AllowSorting="True"
+                                     Grid.Row="1"
+                                     SelectionMode="Single"
+                                     SelectionChanged="TeamDataGrid_SelectionChanged"
+                                     AllowPullToRefresh ="True"
+                                    PullToRefreshCommand="{Binding RefreshCommand}"
+                                     IsBusy="{Binding IsBusy}"
+                                     >
+                <datagrid:SfDataGrid.Columns x:TypeArguments="syncfusion:Columns">
+                    <datagrid:GridTextColumn HeaderText="Team" 
+                                             MappingName="TeamName" />
+                    <datagrid:GridTextColumn HeaderText="Players born"
+                                             MappingName="TeamAgeGroup" />
+                </datagrid:SfDataGrid.Columns>
+
+                <datagrid:SfDataGrid.SortColumnDescriptions>
+                    <datagrid:SortColumnDescription ColumnName="TeamName" 
+                                          SortDirection="Descending" />
+                </datagrid:SfDataGrid.SortColumnDescriptions>
+            </datagrid:SfDataGrid>
+        </StackLayout>
+
+        <StackLayout x:Name="TeamPlayersList" IsVisible="False" Orientation="Vertical" Spacing="18">
+            <StackLayout Orientation="Horizontal">
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Team"
+                    VerticalOptions="Center"/>
+                    <Label Text="{Binding TeamVM.theTeam.TeamName}"
+                    VerticalOptions="Center"/>
+                </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                    <Label Text="- Players born in"/>
+                    <Label Text="{Binding TeamVM.theTeam.TeamAgeGroup}"
+                     VerticalOptions="Center"/>
+                </StackLayout>
+            </StackLayout>
+            <StackLayout Orientation="Vertical">
+                <ListView x:Name="TeamPlayersListView" ItemsSource="{Binding TeamVM.TeamsPlayers}" ItemTapped="TeamPlayerTapped">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text ="{Binding FirstName}" />
+                                    <Label Text ="{Binding LastName}" />
+                                    <Label Text ="{Binding PhoneNum}" />
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </StackLayout>
+    </StackLayout>
+    
+</ContentPage>

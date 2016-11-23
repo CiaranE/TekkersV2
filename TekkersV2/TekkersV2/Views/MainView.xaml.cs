@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Syncfusion.SfDataGrid.XForms;
+using System;
 using TekkersV2.Models;
 using TekkersV2.Services;
 using TekkersV2.ViewModels;
@@ -28,9 +29,12 @@ namespace TekkersV2.Views
             }
         }
 
+
+
         private async void PlayerItemTapped(object sender, EventArgs e)
         {
-            var playerPicked = PlayerListView.SelectedItem as Player;
+            var playerPicked = PlayerDataGrid.SelectedItem as Player;
+            //var playerPicked = PlayerListView.SelectedItem as Player;
 
             if (playerPicked != null)
             {
@@ -49,6 +53,33 @@ namespace TekkersV2.Views
         {
             var mainViewModel = BindingContext as MainViewModel;
             await Navigation.PushAsync(new ReportingPage(mainViewModel));
+        }
+
+        private void PlayerDataGrid_SelectionChanged(object sender, GridSelectionChangedEventArgs e)
+        {
+            var playerPicked = PlayerDataGrid.SelectedItem as Player;
+            if(playerPicked != null)
+            {
+                var theViewModel = BindingContext as MainViewModel;
+                theViewModel.Player = playerPicked;
+                PlayerDataGrid.SelectionController.ClearSelection();
+                Navigation.PushAsync(new SinglePlayerPage(theViewModel));
+            }
+        }
+
+        private void ExecutePullToRefreshCommand()
+        {
+            var theViewModel = BindingContext as MainViewModel;
+            PlayerDataGrid.IsBusy = true;
+            theViewModel.RefreshCommand.Execute(null);
+            PlayerDataGrid.IsBusy = false;
+        }
+
+        private async void AddTeamEvent(object sender, EventArgs e)
+        {
+            var theViewModel = BindingContext as MainViewModel;
+            await Navigation.PushAsync(new AddTeamPage(theViewModel));
+
         }
     }
 }

@@ -32,11 +32,37 @@ namespace TekkersV2.Views
         {
             var theViewModel = BindingContext as MainViewModel;
             var team = theViewModel.TeamVM.theTeam; //ChartPicker.Items[ChartPicker.SelectedIndex];
-            theViewModel.Player.Id = Guid.NewGuid().ToString();
-            theViewModel.Player.AgeGroup = DateTime.Now.Year - theViewModel.Player.DateOfBirth.Year;
-            theViewModel.Player.PlayersTeam = TeamPicker.SelectedItem as Team;
-            theViewModel.PostCommand.Execute(theViewModel.Player);
-            await Navigation.PopAsync();
+            var player = theViewModel.Player;
+            player.Id = Guid.NewGuid().ToString();
+            player.AgeGroup = theViewModel.Player.DateOfBirth.Year;
+            player.PlayersTeam = TeamPicker.SelectedItem as Team;
+
+
+            //MAKE SURE PLAYER IS CORRECT AGE FOR TEAM AND ISN'T ALREADY IN THE SYSTEM
+            await theViewModel.InitialiseDataAsync();
+            var existingPlayers = theViewModel.PlayerList;
+            bool alreadyExists = false;
+            foreach(var p in existingPlayers)
+            {
+                if((p.FirstName.ToUpper() == player.FirstName.ToUpper() && p.LastName.ToUpper()== player.LastName.ToUpper()) && (p.PhoneNum.ToUpper() == player.PhoneNum.ToUpper() || p.DateOfBirth == player.DateOfBirth))
+                    {
+                    alreadyExists = true;
+                }
+            }
+
+            if (alreadyExists == true)
+            {
+                await DisplayAlert("Warning", "A player with this name and either phone number or date of birth already exists in the system. Please double check.", "OK");
+            }
+            else if (theViewModel.Player.AgeGroup != player.PlayersTeam.TeamAgeGroup)
+            {
+                await DisplayAlert("Notification", "This player is the wrong age for this team", "OK");
+            }
+            else if(alreadyExists == false && player.AgeGroup == player.PlayersTeam.TeamAgeGroup)
+            {
+                theViewModel.PostCommand.Execute(theViewModel.Player);
+                await Navigation.PopAsync();
+            }
         }
     }
 }

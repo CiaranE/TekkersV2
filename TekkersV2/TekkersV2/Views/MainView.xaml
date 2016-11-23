@@ -2,30 +2,86 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TekkersV2.Views.MainView"
-             xmlns:ViewModels ="clr-namespace:TekkersV2.ViewModels; assembly=TekkersV2">
+             xmlns:ViewModels="clr-namespace:TekkersV2.ViewModels; assembly=TekkersV2"
+             xmlns:Controls="clr-namespace:TekkersV2.Controls; assembly=TekkersV2"
+             xmlns:datagrid="clr-namespace:Syncfusion.SfDataGrid.XForms;assembly=Syncfusion.SfDataGrid.XForms">
 
     <ContentPage.BindingContext>
         <ViewModels:MainViewModel/>
     </ContentPage.BindingContext>
 
+
     <StackLayout Orientation="Vertical">
-        <Button Text="Add Player" Clicked="AddPlayerEvent"></Button>
-        <Button Text="Find Player" Clicked="FindPlayerButton"></Button>
-        <Button Text="See reports" Clicked="GoToReporting"></Button>
-        <ListView x:Name="PlayerListView" ItemsSource="{Binding PlayerList}" ItemTapped="PlayerItemTapped" IsPullToRefreshEnabled="True" 
+        <StackLayout Orientation="Horizontal">
+            <Button Text="Add Player" Clicked="AddPlayerEvent"></Button>
+            <Button Text="Add Team" Clicked="AddTeamEvent"></Button>
+            <Button Text="See reports" Clicked="GoToReporting"></Button>
+        </StackLayout>
+
+        <StackLayout Orientation="Horizontal">
+            <Entry Text="{Binding NameToFind, Mode=TwoWay}" Placeholder="Search for player"/>
+            <Button Text="Search" Command="{Binding FindByNameCommand}"/>
+        </StackLayout>
+
+        <StackLayout HorizontalOptions="FillAndExpand"  VerticalOptions="FillAndExpand">
+                    <datagrid:SfDataGrid x:Name="PlayerDataGrid" 
+                             ItemsSource="{Binding PlayerList, Mode=TwoWay}" 
+                             VerticalOptions="FillAndExpand"
+                             AutoGenerateColumns="False"
+                                 ColumnSizer="Star"
+                                 AllowSorting="True"
+                                 AllowTriStateSorting="True"
+                                 AllowMultiSorting="True"
+                                     Grid.Row="1"
+                                     SelectionMode="Single"
+                                     SelectionChanged="PlayerDataGrid_SelectionChanged"
+                                     AllowPullToRefresh ="True"
+                                    PullToRefreshCommand="{Binding RefreshCommand}"
+                                     IsBusy="{Binding IsBusy}"
+                                     >
+                    <datagrid:SfDataGrid.Columns x:TypeArguments="syncfusion:Columns">
+                        <datagrid:GridTextColumn HeaderText="Name" 
+                                             MappingName="FirstName" />
+                        <datagrid:GridTextColumn HeaderText="Surname"
+                                             MappingName="LastName" />
+                        <datagrid:GridTextColumn HeaderText="Guardian" 
+                                             MappingName="ParentFName" />
+                        <datagrid:GridTextColumn HeaderText="Phone"
+                                             MappingName="PhoneNum" />
+                        <datagrid:GridTextColumn HeaderText="Team"
+                                             MappingName="PlayersTeam.TeamName"/>
+                    </datagrid:SfDataGrid.Columns>
+
+                    <datagrid:SfDataGrid.SortColumnDescriptions>
+                        <datagrid:SortColumnDescription ColumnName="FirstName" 
+                                          SortDirection="Ascending" />
+                        <datagrid:SortColumnDescription ColumnName="LastName" 
+                                          SortDirection="Ascending" />
+                        <datagrid:SortColumnDescription ColumnName="PlayersTeam.TeamName" 
+                                          SortDirection="Ascending" />
+                    </datagrid:SfDataGrid.SortColumnDescriptions>
+                </datagrid:SfDataGrid>
+
+        </StackLayout>
+
+        <StackLayout IsVisible="False">
+            <Controls:BindablePicker x:Name="SortByTeamPicker" ItemsSource="{Binding Path=TeamVM.TeamsList}" DisplayMemberPath="TeamName" SelectedItem="{Binding Path=TeamVM.theTeam, Mode=TwoWay}" Title="Sort players by team"/>
+            <ListView x:Name="PlayerListView" ItemsSource="{Binding PlayerList}" ItemTapped="PlayerItemTapped" IsPullToRefreshEnabled="True" 
                   RefreshCommand="{Binding RefreshCommand}" IsRefreshing="{Binding IsBusy, Mode=OneWay}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <StackLayout Orientation="Horizontal">
-                            <Label Text ="{Binding FirstName}" />
-                            <Label Text ="{Binding LastName}" />
-                            <Label Text ="{Binding PhoneNum}" />
-                            <Label Text ="{Binding PlayersTeam.TeamName}"/>
-                        </StackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text ="{Binding FirstName}" />
+                                <Label Text ="{Binding LastName}" />
+                                <Label Text ="{Binding PhoneNum}" />
+                                <Label Text ="{Binding PlayersTeam.TeamName}"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+
     </StackLayout>
 </ContentPage>

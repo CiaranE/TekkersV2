@@ -28,7 +28,6 @@ namespace TekkersV2.Views
             if (testPicked != null)
             {
                 var mainViewModel = BindingContext as MainViewModel;
-
                 if (mainViewModel != null)
                 {
                     mainViewModel.SelectedTest = testPicked;

@@ -61,7 +61,7 @@
             <Label Text="{Binding Player.PlayersTeam.TeamName}"/>
         </StackLayout>
 
-    <StackLayout>
+        <StackLayout>
              <Button Text="Assess player" Clicked="AssessPlayerEvent"></Button>
         </StackLayout>
             

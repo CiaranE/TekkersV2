@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TekkersV2.Views.ReportingPage"
              xmlns:ViewModels ="clr-namespace:TekkersV2.ViewModels; Assembly=TekkersV2"
-             xmlns:chart ="clr-namespace:Syncfusion.SfChart.XForms;assembly=Syncfusion.SfChart.XForms">
+             xmlns:chart ="clr-namespace:Syncfusion.SfChart.XForms;assembly=Syncfusion.SfChart.XForms"
+             xmlns:controls ="clr-namespace:TekkersV2.Controls; assembly=TekkersV2">
 
 <ContentPage.BindingContext>
     <ViewModels:MainViewModel/>
@@ -34,6 +35,26 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+        </StackLayout>
+
+        <StackLayout>
+            <controls:BindablePicker x:Name="ChartTeamPicker" ItemsSource="{Binding Path = TeamVM.TeamsList}" DisplayMemberPath="TeamName" SelectedItem="{Binding Path = TeamVM.theTeam, Mode = TwoWay}"/>
+        </StackLayout>
+
+        <StackLayout>
+            <controls:BindablePicker x:Name="ChartPlayerPicker" ItemsSource="{Binding Path = TeamVM.TeamsList}" DisplayMemberPath="TeamName" SelectedItem="{Binding Path = TeamVM.theTeam, Mode = TwoWay}"/>
+        </StackLayout>
+
+        <StackLayout>
+            <controls:BindablePicker x:Name="ChartAgegroupPicker" ItemsSource="{Binding Path = TeamVM.AgeGroup}" DisplayMemberPath="TeamName" SelectedItem="{Binding Path = TeamVM.theTeam, Mode = TwoWay}"/>
+        </StackLayout>
+
+        <StackLayout>
+            <controls:BindablePicker x:Name="ChartTestPicker" ItemsSource="{Binding Path = TeamVM.TeamsList}" DisplayMemberPath="TeamName" SelectedItem="{Binding Path = TeamVM.theTeam, Mode = TwoWay}"/>
+        </StackLayout>
+
+        <StackLayout>
+            <controls:BindablePicker x:Name="ChartAssessmentPicker" ItemsSource="{Binding Path = TeamVM.TeamsList}" DisplayMemberPath="TeamName" SelectedItem="{Binding Path = TeamVM.theTeam, Mode = TwoWay}"/>
         </StackLayout>
     </StackLayout>
 

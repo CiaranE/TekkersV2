@@ -58,5 +58,12 @@ namespace TekkersV2.Services
 
             return listofPlayers;
         }
+
+        public async Task<List<Player>> GetPlayersOnTeamAsync(string id)
+        {
+            PlayerClient<Player> client = new PlayerClient<Player>();
+            var playersOnTeamList = await client.GetPlayersOnTeamAsync(id);
+            return playersOnTeamList;
+        }
     }
 }

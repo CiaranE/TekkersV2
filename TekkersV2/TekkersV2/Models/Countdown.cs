@@ -16,6 +16,8 @@ namespace TekkersV2.Models
 
         private int _Seconds;
         private bool _isRunning;
+        private bool _isFinished;
+
         public int Seconds
         {
             get { return _Seconds; }
@@ -29,6 +31,16 @@ namespace TekkersV2.Models
         {
             get { return _isRunning; }
             set { _isRunning = value; }
+        }
+
+        public bool IsFinished
+        {
+            get { return _isFinished; }
+            set
+            {
+                _isFinished = value;
+                OnPropertyChanged();
+            }
         }
 
         public event EventHandler Elapsed;
@@ -68,13 +80,15 @@ namespace TekkersV2.Models
         public void Stop()
         {
             IsRunning = false;
-            Seconds = 30;
+            Seconds = 0;
+            IsFinished = true;
         }
 
         public void Cancel()
         {
-            this.Stop();
+            IsRunning = false;
             Seconds = 30;
+            IsFinished = false;
             //Seconds = 30;
             //reset the timer here
         }

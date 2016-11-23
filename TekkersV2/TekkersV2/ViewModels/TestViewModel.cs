@@ -21,9 +21,11 @@ namespace TekkersV2.ViewModels
         private string _TestDescription;
         private int _TestScore;
         private MainViewModel _TestMainViewModel;
-        private Countdown _Timer = new Countdown(30);
+        private Countdown _Timer = new Countdown();
         private int _AttemptOne = 0;
         private int _AttemptTwo = 0;
+        private bool _IsComplete = false;
+        private List<Attempt> _AttemptList = new List<Attempt>();
 
         public List<Test> TestList
         {
@@ -31,6 +33,15 @@ namespace TekkersV2.ViewModels
             set
             {
                 _TestList = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public List<Attempt> AttemptList
+        {
+            get { return _AttemptList; }
+            set {
+                _AttemptList = value;
                 OnPropertyChanged();
             }
         }
@@ -116,21 +127,38 @@ namespace TekkersV2.ViewModels
             }
         }
 
+        public bool IsComplete
+        {
+            get { return _IsComplete; }
+            set
+            {
+                _IsComplete = value;
+                OnPropertyChanged();
+            }
+        }
+
         public TestViewModel()
         {
 
         }
 
-        public void StartTimer()
+        public async void StartTimer()
         {
             var timer = Timer;
-            timer.Start();
+            await timer.Start();
         }
 
         public async Task<List<Test>> GetTestsAsync()
         {
             var testService = new TestServices();
             TestList = await testService.GetTestsAsync();
+            return TestList;
+        }
+
+        public async Task<List<Test>> GetTestsForTeam(string teamid)
+        {
+            var testService = new TestServices();
+            TestList = await testService.GetTestsForTeamAsync(teamid);
             return TestList;
         }
 

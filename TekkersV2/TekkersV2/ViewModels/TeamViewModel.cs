@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -13,10 +14,12 @@ namespace TekkersV2.ViewModels
 {
     public class TeamViewModel : INotifyPropertyChanged
     {
-        private Team _theTeam;
+        private Team _theTeam = new Team();
+        private string _TeamName;
+        private int _TeamAgeGroup;
         private List<Player> _TeamsPlayers = new List<Player>();
         private List<Team> _TeamsList = new List<Team>();
-
+        private bool _IsBusy = false;
 
         public Team theTeam
         {
@@ -27,6 +30,27 @@ namespace TekkersV2.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        public string TeamName
+        {
+            get { return _TeamName; }
+            set
+            {
+                _TeamName = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int TeamAgeGroup
+        {
+            get { return _TeamAgeGroup; }
+            set
+            {
+                _TeamAgeGroup = value;
+                OnPropertyChanged();
+            }
+        }
+
         public List<Team> TeamsList
         {
             get { return _TeamsList; }
@@ -48,6 +72,28 @@ namespace TekkersV2.ViewModels
 
         }
 
+        public bool IsBusy
+        {
+            get { return _IsBusy; }
+            set
+            {
+                _IsBusy = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public Command PostTeamCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    var teamServices = new TeamServices();
+                    await teamServices.PostTeamAsync(_theTeam);
+                });
+            }
+        }
+
         public Command GetTeamsCommand
         {
             get
@@ -60,7 +106,38 @@ namespace TekkersV2.ViewModels
             }
         }
 
+        public Command GetPlayersOnTeamCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    var playerServices = new PlayerServices();
+                    TeamsPlayers = await playerServices.GetPlayersOnTeamAsync(_theTeam.Id);
+                });
+            }
+        }
 
+        public Command RefreshTeamListCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    IsBusy = true;
+                    var teamServices = new TeamServices();
+                    TeamsList = await teamServices.GetTeamsAsync();
+                    IsBusy = false;
+                });
+            }
+        }
+   
+        //CONSTRUCTOR
+        public TeamViewModel()
+        {
+        }
+
+        //HANDLE PROPERTY CHANGES
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

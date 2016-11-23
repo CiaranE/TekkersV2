@@ -200,6 +200,8 @@ namespace TekkersV2.ViewModels
             }
         }
 
+
+
         public Command EditCommand
         {
             get
@@ -232,7 +234,8 @@ namespace TekkersV2.ViewModels
                 return new Command(async () =>
                 {
                     var playerServices = new PlayerServices();
-                    PlayersByNameList = await playerServices.GetPlayerByName(_nameToFind);
+                    PlayerList = await playerServices.GetPlayerByName(_nameToFind);
+                    NameToFind = "";
                 });
             }
         }
@@ -267,7 +270,7 @@ namespace TekkersV2.ViewModels
             this.TeamVM.GetTeamsCommand.Execute(null);
         }
 
-        private async Task InitialiseDataAsync()
+        public async Task InitialiseDataAsync()
         {
             var playerServices = new PlayerServices();
             PlayerList = await playerServices.GetPlayersAsync();

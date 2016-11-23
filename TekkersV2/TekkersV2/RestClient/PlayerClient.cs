@@ -93,11 +93,24 @@ namespace Plugin.RestClient
 
             httpClient.DefaultRequestHeaders.Add("ZUMO-API-VERSION", "2.0.0");
 
-            var json = await httpClient.GetStringAsync(WebServiceUrl + age);
+            var json = await httpClient.GetStringAsync(WebServiceUrl+ "GetPlayersByAge/" + age);
 
             var results = JsonConvert.DeserializeObject<List<T>>(json);
 
             return results;
+        }
+
+        public async Task<List<T>> GetPlayersOnTeamAsync(string id)
+        {
+            var httpClient = new HttpClient();
+
+            httpClient.DefaultRequestHeaders.Add("ZUMO-API-VERSION", "2.0.0");
+
+            var json = await httpClient.GetStringAsync(WebServiceUrl + "GetPlayersOnTeam/" + id);
+
+            var playersOnTeam = JsonConvert.DeserializeObject<List<T>>(json);
+
+            return playersOnTeam;
         }
     }
 }
