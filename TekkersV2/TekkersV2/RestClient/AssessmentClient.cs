@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using TekkersV2.Models;
 
 namespace Plugin.RestClient.AssessmentClient
 {
@@ -85,6 +86,17 @@ namespace Plugin.RestClient.AssessmentClient
             var taskModels = JsonConvert.DeserializeObject<List<T>>(json);
 
             return taskModels;
+        }
+
+        public async Task<bool> EnterAssessmentScoreAsync(string id, int score)
+        {
+            var httpClient = new HttpClient();
+
+            httpClient.DefaultRequestHeaders.Add("ZUMO-API-VERSION", "2.0.0");
+
+            var response = await httpClient.DeleteAsync(WebServiceUrl + "EnterAssessmentScore/"+id+"/"+score);
+
+            return response.IsSuccessStatusCode;
         }
     }
 }

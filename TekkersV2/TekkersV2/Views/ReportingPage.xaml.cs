@@ -20,8 +20,12 @@ namespace TekkersV2.Views
         {
             InitializeComponent();
             BindingContext = mainviewmodel;
-            FormPicker.Items.Add("Players by age");
-            FormPicker.Items.Add("Something else");
+            mainviewmodel.TeamVM.GetAllAgeGroups.Execute(null);
+            FormPicker.Items.Add("Top 10 players by agegroup");
+            FormPicker.Items.Add("See player scores by team");
+            FormPicker.Items.Add("Most improved since last assessment");
+            FormPicker.Items.Add("Top 10 by test in each agegroup");
+            FormPicker.Items.Add("See player progression by assessment");
         }
 
         private async void ShowChartFormEvent(object sender, EventArgs e)
@@ -31,8 +35,8 @@ namespace TekkersV2.Views
 
             switch (formPicked)
             {
-                case "Players by age":
-                    FormHolder.IsVisible = true;
+                case "Top 10 players by agegroup":
+                    TopTenByAgeFormHolder.IsVisible = true;
                     break;
                 case "Something else":
                     await DisplayAlert("Something", "Selected", "OK");
@@ -44,6 +48,12 @@ namespace TekkersV2.Views
             FormPicker.IsVisible=true;
         }
 
+        private void ShowMakeChartButton(object sender, EventArgs e)
+        {
+            MakeChartButton.IsVisible = true;
+        }
+
+
         private async void MakeChart(object sender, EventArgs e)
         {
             var theViewModel = BindingContext as MainViewModel;
@@ -52,7 +62,6 @@ namespace TekkersV2.Views
             theViewModel.TeamVM.GetPlayersOnTeamCommand.Execute(theViewModel.TeamVM.theTeam.Id);
             var testsForTeam = theViewModel.TestVM.TestList;
             testsForTeam = await theViewModel.TestVM.GetTestsForTeam(theViewModel.TeamVM.theTeam.Id);
-            ListView.IsVisible = true;
         }
     }
 }

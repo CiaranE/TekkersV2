@@ -39,6 +39,12 @@ namespace TekkersV2.Services
             var deleteAssessment = await client.DeleteAsync(Id);
         }
 
+        public async Task EnterAssessmentScoreAsync(string id, int score)
+        {
+            AssessmentClient<Assessment> client = new AssessmentClient<Assessment>();
+            await client.EnterAssessmentScoreAsync(id, score);
+        }
+
         //Find a Assessment by their surname
         public async Task<List<Assessment>> GetAssessmentByNameAsync(string name)
         {

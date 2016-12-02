@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -56,6 +57,19 @@ namespace TekkersV2.Services
             var listofTeams = await client.GetTeamsByAgeAsync(age);
 
             return listofTeams;
+        }
+
+        public async Task<ObservableCollection<int>> GetAllTeams()
+        {
+            TeamClient<Team> client = new TeamClient<Team>();
+            List<Team> allTeams = await client.GetAllTeams();
+            ObservableCollection<int> collection = new ObservableCollection<int>();
+            for(var i= 0; i<allTeams.Count; i++)
+            {
+                var eachAge = allTeams[i].TeamAgeGroup;
+                collection.Add(eachAge); 
+            }
+            return collection;
         }
     }
 }

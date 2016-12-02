@@ -19,6 +19,9 @@ namespace TekkersV2.ViewModels
         private string _TestName;
         private int _AgeGroup;
         private Team _theTeam;
+        private ObservableCollection<int> _AgeGroups = new ObservableCollection<int>();
+        private ObservableCollection<Player> _AllPlayers = new ObservableCollection<Player>();
+        private ObservableCollection<Team> _AllTeams = new ObservableCollection<Team>(); 
         private List<Player> _PlayersOnTeam = new List<Player>();
 
         public string Date
@@ -61,6 +64,16 @@ namespace TekkersV2.ViewModels
             }
         }
 
+        public ObservableCollection<int> AgeGroups
+        {
+            get { return _AgeGroups; }
+            set
+            {
+                _AgeGroups = value;
+                OnPropertyChanged();
+            }
+        }
+
         public Team theTeam
         {
             get { return _theTeam; }
@@ -71,12 +84,32 @@ namespace TekkersV2.ViewModels
             }
         }
 
+        public ObservableCollection<Team> AllTeams
+        {
+            get { return _AllTeams; }
+            set
+            {
+                _AllTeams = value;
+                OnPropertyChanged();
+            }
+        }
+
         public List<Player> PlayersOnTeam
         {
             get { return _PlayersOnTeam; }
             set
             {
                 _PlayersOnTeam = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<Player> AllPlayers
+        {
+            get { return _AllPlayers; }
+            set
+            {
+                _AllPlayers = value;
                 OnPropertyChanged();
             }
         }

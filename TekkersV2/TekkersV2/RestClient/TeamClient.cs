@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -96,6 +97,19 @@ namespace TekkersV2.RestClient
             var teams = JsonConvert.DeserializeObject<List<T>>(json);
 
             return teams;
+        }
+
+        public async Task<List<T>> GetAllTeams()
+        {
+            var httpClient = new HttpClient();
+
+            httpClient.DefaultRequestHeaders.Add("ZUMO-API-VERSION", "2.0.0");
+
+            var json = await httpClient.GetStringAsync(WebServiceUrl);
+
+            var allTeams = JsonConvert.DeserializeObject<List<T>>(json);
+
+            return allTeams;
         }
     }
 }

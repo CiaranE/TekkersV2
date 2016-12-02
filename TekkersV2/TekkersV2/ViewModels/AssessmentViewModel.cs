@@ -22,6 +22,7 @@ namespace TekkersV2.ViewModels
         private TestViewModel _TestViewModel;
         private Player _AssessmentPlayer;
         private string _Player_Id;
+        private int _AssessmentScore;
 
         public List<Assessment> AssessmentList
         {
@@ -93,6 +94,16 @@ namespace TekkersV2.ViewModels
             }
         }
 
+        public int AssessmentScore
+        {
+            get { return _AssessmentScore; }
+            set
+            {
+                _AssessmentScore = value;
+                OnPropertyChanged();
+            }
+        }
+
         public MainViewModel AssessMainViewModel
         {
             get { return _MainViewModel; }
@@ -125,6 +136,18 @@ namespace TekkersV2.ViewModels
             }
         }
 
+        public Command EnterAssessmentScoreCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    var assessmentServices = new AssessmentServices();
+                    await assessmentServices.EnterAssessmentScoreAsync(_Assessment.Id ,_AssessmentScore);
+                });
+            }
+        }
+
         //Constructor
         public AssessmentViewModel()
         {
@@ -132,14 +155,14 @@ namespace TekkersV2.ViewModels
         }
 
         //GET ALL ASSESSMENTS TAKEN
-        private async Task AllAssessmentsAsync()
+        public async Task AllAssessmentsAsync()
         {
             var assessServices = new AssessmentServices();
             AssessmentList = await assessServices.GetAssessmentsAsync();
         }
 
         //GET THE TESTS OF A PARTICULAR ASSESSMENT
-        private async Task GetAssessmentTestsAsync(string assessid)
+        public async Task GetAssessmentTestsAsync(string assessid)
         {
             assessid = this.theAssessment.Id;
             var testServices = new TestServices();

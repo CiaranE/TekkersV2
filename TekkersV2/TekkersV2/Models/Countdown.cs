@@ -63,7 +63,7 @@ namespace TekkersV2.Models
 
         public async Task Start()
         {
-            Seconds = 30;
+            Seconds = 5;
             IsRunning = true;
             while (IsRunning)
             {
@@ -87,7 +87,7 @@ namespace TekkersV2.Models
         public void Cancel()
         {
             IsRunning = false;
-            Seconds = 30;
+            Seconds = 5;
             IsFinished = false;
             //Seconds = 30;
             //reset the timer here

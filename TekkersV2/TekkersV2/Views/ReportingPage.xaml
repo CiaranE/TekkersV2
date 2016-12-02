@@ -10,52 +10,25 @@
     <ViewModels:MainViewModel/>
 </ContentPage.BindingContext>
 
-    <StackLayout>
+    <StackLayout Orientation="Vertical">
         <StackLayout>
             <Picker x:Name="FormPicker" Title="Which chart do you want to create" SelectedIndex="1" SelectedIndexChanged="ShowChartFormEvent"/>
         </StackLayout>
 
-        <StackLayout x:Name="FormHolder" IsVisible="False">
-            <Label Text="Age:"/>
-            <Entry Text="{Binding ChartVM.AgeGroup, Mode=TwoWay}"/>
-            <Button Text="Make chart" Clicked="MakeChart"></Button>
+        <StackLayout x:Name="TopTenByAgeFormHolder" IsVisible="False">
+            <StackLayout>
+                <controls:BindablePicker x:Name="AgeGroupPicker" Title="Players born in year:" ItemsSource="{Binding Path = TeamVM.AgeGroups}" DisplayMemberPath="" SelectedItem="{Binding Path = ChartVM.AgeGroup, Mode = TwoWay}" SelectedIndexChanged="ShowMakeChartButton"/>
+            </StackLayout>
+            <StackLayout x:Name="MakeChartButton" IsVisible="False">
+                <Button Text="Make chart" Clicked="MakeChart"></Button>
+            </StackLayout>
         </StackLayout>
 
-        <StackLayout>
-            <ListView x:Name="ListView" IsVisible="False" ItemsSource="{Binding PlayersByAgeList}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <StackLayout Orientation="Horizontal">
-                                <Label Text ="{Binding FirstName}" />
-                                <Label Text ="{Binding LastName}" />
-                                <Label Text ="{Binding AgeGroup}" />
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackLayout>
 
         <StackLayout>
             <controls:BindablePicker x:Name="ChartTeamPicker" ItemsSource="{Binding Path = TeamVM.TeamsList}" DisplayMemberPath="TeamName" SelectedItem="{Binding Path = TeamVM.theTeam, Mode = TwoWay}"/>
         </StackLayout>
 
-        <StackLayout>
-            <controls:BindablePicker x:Name="ChartPlayerPicker" ItemsSource="{Binding Path = TeamVM.TeamsList}" DisplayMemberPath="TeamName" SelectedItem="{Binding Path = TeamVM.theTeam, Mode = TwoWay}"/>
-        </StackLayout>
-
-        <StackLayout>
-            <controls:BindablePicker x:Name="ChartAgegroupPicker" ItemsSource="{Binding Path = TeamVM.AgeGroup}" DisplayMemberPath="TeamName" SelectedItem="{Binding Path = TeamVM.theTeam, Mode = TwoWay}"/>
-        </StackLayout>
-
-        <StackLayout>
-            <controls:BindablePicker x:Name="ChartTestPicker" ItemsSource="{Binding Path = TeamVM.TeamsList}" DisplayMemberPath="TeamName" SelectedItem="{Binding Path = TeamVM.theTeam, Mode = TwoWay}"/>
-        </StackLayout>
-
-        <StackLayout>
-            <controls:BindablePicker x:Name="ChartAssessmentPicker" ItemsSource="{Binding Path = TeamVM.TeamsList}" DisplayMemberPath="TeamName" SelectedItem="{Binding Path = TeamVM.theTeam, Mode = TwoWay}"/>
-        </StackLayout>
     </StackLayout>
 
 

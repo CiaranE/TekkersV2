@@ -23,7 +23,7 @@
         </StackLayout>
 
         <StackLayout Orientation="Vertical">
-            <ListView x:Name="TestListView" ItemsSource="{Binding AssessVM.theTests}" ItemTapped="TestItemTapped">
+            <ListView x:Name="TestListView" ItemsSource="{Binding AssessVM.theTests, Mode=TwoWay}" ItemTapped="TestItemTapped">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

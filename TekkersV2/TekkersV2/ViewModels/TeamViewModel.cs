@@ -20,6 +20,7 @@ namespace TekkersV2.ViewModels
         private List<Player> _TeamsPlayers = new List<Player>();
         private List<Team> _TeamsList = new List<Team>();
         private bool _IsBusy = false;
+        private ObservableCollection<string> _AgeGroups = new ObservableCollection<string>();
 
         public Team theTeam
         {
@@ -47,6 +48,16 @@ namespace TekkersV2.ViewModels
             set
             {
                 _TeamAgeGroup = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<string> AgeGroups
+        {
+            get { return _AgeGroups; }
+            set
+            {
+                _AgeGroups = value;
                 OnPropertyChanged();
             }
         }
@@ -90,6 +101,22 @@ namespace TekkersV2.ViewModels
                 {
                     var teamServices = new TeamServices();
                     await teamServices.PostTeamAsync(_theTeam);
+                });
+            }
+        }
+
+        public Command GetAllAgeGroups
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    var teamServices = new TeamServices();
+                    var arr = await teamServices.GetAllTeams();
+                    for(var i=0; i<arr.Count; i++)
+                    {
+                        AgeGroups.Add(arr[i].ToString());
+                    }
                 });
             }
         }

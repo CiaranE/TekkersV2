@@ -58,6 +58,26 @@ namespace TekkersV2.Views
             await DisplayAlert("Score", "The score for this test is {Binding TestVM.TestScore}", "OK");
             theViewModel.EnterTestScoreCommand.Execute(theViewModel);
             theViewModel.TestVM.IsComplete = true;
+            theViewModel.AssessVM.theTests.Remove(theTest);
+            //CHECK ALL TESTS ARE FINISHED, CALCULATE THE ASSESSMENT SCORE AND ADD IT TO THE DATABASE
+            if(theViewModel.AssessVM.theTests.Count == 0)
+            {
+                var assessScore = 0;
+                Assessment assessment = theViewModel.AssessVM.theAssessment;
+                Task getThetests = theViewModel.AssessVM.GetAssessmentTestsAsync(assessment.Id);
+                getThetests.Start();
+                getThetests.Wait();
+                if (getThetests.IsCompleted)
+                {
+                    List<Test> theTests = theViewModel.AssessVM.theTests;
+                    for(int i = 0; i<theTests.Count; i++)
+                    {
+                        assessScore += theTests[i].TestScore;
+                    }
+                }
+                theViewModel.AssessVM.AssessmentScore = assessScore;
+                theViewModel.AssessVM.EnterAssessmentScoreCommand.Execute(null);
+            }
             await Navigation.PopAsync();
         }
 
