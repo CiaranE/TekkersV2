@@ -95,11 +95,11 @@ namespace Plugin.RestClient.TestClient
 
             httpClient.DefaultRequestHeaders.Add("ZUMO-API-VERSION", "2.0.0");
 
-            var json = await httpClient.GetStringAsync(WebServiceUrl + assessid);
+            var json = await httpClient.GetStringAsync(WebServiceUrl + "GetTestsByAssessment/"+assessid);
 
-            var taskModels = JsonConvert.DeserializeObject<List<T>>(json);
+            var tests = JsonConvert.DeserializeObject<List<T>>(json);
 
-            return taskModels;
+            return tests;
         }
         
         public async Task<bool> PutAsync(string id, int score)

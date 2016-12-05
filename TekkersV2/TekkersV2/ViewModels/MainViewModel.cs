@@ -201,7 +201,6 @@ namespace TekkersV2.ViewModels
         }
 
 
-
         public Command EditCommand
         {
             get
@@ -259,7 +258,7 @@ namespace TekkersV2.ViewModels
                 return new Command(async () =>
                 {
                     var testServices = new TestServices();
-                    await testServices.PutTestScoreAsync(SelectedTest.Id, TestVM.TestScore);
+                    await testServices.PutTestScoreAsync(SelectedTest.Id, SelectedTest.TestScore);
                 });
             }
         }

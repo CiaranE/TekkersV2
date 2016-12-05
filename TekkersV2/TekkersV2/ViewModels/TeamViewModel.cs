@@ -19,6 +19,7 @@ namespace TekkersV2.ViewModels
         private int _TeamAgeGroup;
         private List<Player> _TeamsPlayers = new List<Player>();
         private List<Team> _TeamsList = new List<Team>();
+        private ObservableCollection<Team> _ObserveTeams;
         private bool _IsBusy = false;
         private ObservableCollection<string> _AgeGroups = new ObservableCollection<string>();
 
@@ -68,6 +69,16 @@ namespace TekkersV2.ViewModels
             set
             {
                 _TeamsList = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<Team> ObserveTeams
+        {
+            get { return _ObserveTeams; }
+            set
+            {
+                _ObserveTeams = value;
                 OnPropertyChanged();
             }
         }

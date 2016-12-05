@@ -35,8 +35,14 @@ namespace TekkersV2.Views
             var player = theViewModel.Player;
             player.Id = Guid.NewGuid().ToString();
             player.AgeGroup = theViewModel.Player.DateOfBirth.Year;
-            player.PlayersTeam = TeamPicker.SelectedItem as Team;
-
+            if (team == null)
+            {
+                await DisplayAlert("No team selected","Player must be added to a team","OK");
+            }
+            else
+            {
+                player.PlayersTeam = TeamPicker.SelectedItem as Team;
+            }
 
             //MAKE SURE PLAYER IS CORRECT AGE FOR TEAM AND ISN'T ALREADY IN THE SYSTEM
             await theViewModel.InitialiseDataAsync();

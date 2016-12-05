@@ -23,7 +23,7 @@
         </StackLayout>
 
         <StackLayout Orientation="Vertical">
-            <ListView x:Name="TestListView" ItemsSource="{Binding AssessVM.theTests, Mode=TwoWay}" ItemTapped="TestItemTapped">
+            <ListView x:Name="TestListView" ItemsSource="{Binding AssessVM.ObserveTests, Mode=TwoWay}" ItemTapped="TestItemTapped">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -34,6 +34,11 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+        </StackLayout>
+
+        <StackLayout x:Name ="ShowAssessmentScore" Orientation ="Horizontal" IsVisible="False">
+            <Label Text="The score for this assessment is "/>
+            <Label Text="{Binding AssessVM.AssessmentScore}"/>
         </StackLayout>
     </StackLayout>
 

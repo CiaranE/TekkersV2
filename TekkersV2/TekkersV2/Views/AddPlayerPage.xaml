@@ -33,7 +33,7 @@
         <Entry Text="{Binding Player.Email, Mode=TwoWay}" Keyboard="Email"/>
 
         <Label Text="Pick player's team" />
-        <Controls:BindablePicker x:Name="TeamPicker" ItemsSource="{Binding Path= TeamVM.TeamsList}" DisplayMemberPath="TeamName" SelectedItem="{Binding Path = TeamVM.Team, Mode=TwoWay}" />
+        <Controls:BindablePicker x:Name="TeamPicker" Title="Add to team" ItemsSource="{Binding Path= TeamVM.TeamsList}" DisplayMemberPath="TeamName" SelectedItem="{Binding Path = TeamVM.Team, Mode=TwoWay}" />
 
         <Button Text="Add player" Clicked="AddPlayerEvent"></Button>
     </StackLayout>

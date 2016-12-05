@@ -20,7 +20,7 @@
 
         <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
             <datagrid:SfDataGrid x:Name="TeamDataGrid"
-                                 ItemsSource="{Binding TeamVM.TeamsList, Mode=TwoWay}"
+                                 ItemsSource="{Binding TeamVM.ObserveTeams, Mode=TwoWay}"
                              VerticalOptions="FillAndExpand"
                              AutoGenerateColumns="False"
                                  ColumnSizer="Star"
@@ -29,7 +29,7 @@
                                      SelectionMode="Single"
                                      SelectionChanged="TeamDataGrid_SelectionChanged"
                                      AllowPullToRefresh ="True"
-                                    PullToRefreshCommand="{Binding RefreshCommand}"
+                                    PullToRefreshCommand="{Binding TeamVM.RefreshTeamListCommand}"
                                      IsBusy="{Binding IsBusy}"
                                      >
                 <datagrid:SfDataGrid.Columns x:TypeArguments="syncfusion:Columns">

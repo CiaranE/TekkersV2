@@ -69,8 +69,8 @@ namespace TekkersV2.Models
             {
                 if (Seconds >= 1)
                 {
-                    OnTimerElapsed();
                     await Task.Delay(1000);
+                    OnTimerElapsed();
                     Seconds--;
                 }
                 else Stop();

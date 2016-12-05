@@ -1,6 +1,7 @@
 ﻿using Syncfusion.SfDataGrid.XForms;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -98,6 +99,15 @@ namespace TekkersV2.Views
                 mainViewModel.Player = playerPicked;
                 Navigation.PushAsync(new SinglePlayerPage(mainViewModel));
             }
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            var theViewModel = BindingContext as MainViewModel;
+            List<Team> teams = theViewModel.TeamVM.TeamsList;
+            theViewModel.TeamVM.ObserveTeams = new ObservableCollection<Team>(theViewModel.TeamVM.TeamsList);
+            TeamDataGrid.ItemsSource = theViewModel.TeamVM.ObserveTeams;
         }
     }
 }

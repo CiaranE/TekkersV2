@@ -69,7 +69,7 @@ namespace Plugin.RestClient
 
             httpClient.DefaultRequestHeaders.Add("ZUMO-API-VERSION", "2.0.0");
 
-            var response = await httpClient.DeleteAsync(WebServiceUrl + id);
+            var response = await httpClient.DeleteAsync(WebServiceUrl+"DeletePlayer/" + id);
 
             return response.IsSuccessStatusCode;
         }

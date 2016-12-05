@@ -45,42 +45,48 @@ namespace TekkersV2.Views
             var theTest = theViewModel.SelectedTest;
             if (attemptOne >= attemptTwo)
             {
+                theTest.TestScore = attemptOne;
                 theViewModel.TestVM.TestScore = attemptOne;
             }
             else if (attemptTwo > attemptOne)
             {
+                theTest.TestScore = attemptTwo;
                 theViewModel.TestVM.TestScore = attemptTwo;
             }
-            else if(attemptOne == 0 && attemptTwo == 0)
+            else if (attemptOne == 0 && attemptTwo == 0)
             {
                 await DisplayAlert("Notification", "Please enter a score for at least one attempt", "OK");
             }
-            await DisplayAlert("Score", "The score for this test is {Binding TestVM.TestScore}", "OK");
+            await DisplayAlert("Score", "The score for this test is " + theViewModel.TestVM.TestScore, "OK");
             theViewModel.EnterTestScoreCommand.Execute(theViewModel);
             theViewModel.TestVM.IsComplete = true;
-            theViewModel.AssessVM.theTests.Remove(theTest);
-            //CHECK ALL TESTS ARE FINISHED, CALCULATE THE ASSESSMENT SCORE AND ADD IT TO THE DATABASE
-            if(theViewModel.AssessVM.theTests.Count == 0)
-            {
-                var assessScore = 0;
-                Assessment assessment = theViewModel.AssessVM.theAssessment;
-                Task getThetests = theViewModel.AssessVM.GetAssessmentTestsAsync(assessment.Id);
-                getThetests.Start();
-                getThetests.Wait();
-                if (getThetests.IsCompleted)
-                {
-                    List<Test> theTests = theViewModel.AssessVM.theTests;
-                    for(int i = 0; i<theTests.Count; i++)
-                    {
-                        assessScore += theTests[i].TestScore;
-                    }
-                }
-                theViewModel.AssessVM.AssessmentScore = assessScore;
-                theViewModel.AssessVM.EnterAssessmentScoreCommand.Execute(null);
-            }
-            await Navigation.PopAsync();
-        }
 
+
+            bool removetest = theViewModel.AssessVM.theTests.Remove(theTest);
+            if (removetest == true)
+            {
+                //CHECK ALL TESTS ARE FINISHED, CALCULATE THE ASSESSMENT SCORE AND ADD IT TO THE DATABASE
+                if (theViewModel.AssessVM.theTests.Count == 0)
+                {
+                    var assessScore = 0;
+                    Assessment assessment = theViewModel.AssessVM.theAssessment;
+                    await theViewModel.AssessVM.GetAssessmentTestsAsync(assessment.Id);
+                    
+                    if (theViewModel.AssessVM.theTests != null)
+                    {
+                        List<Test> theTests = theViewModel.AssessVM.theTests;
+                        for (int i = 0; i < theTests.Count; i++)
+                        {
+                            assessScore += theTests[i].TestScore;
+                        }
+                    }
+                    theViewModel.AssessVM.AssessmentScore = assessScore;
+                    await DisplayAlert("Assessment score", "The score for this assessment is " + assessScore, "OK");
+                    theViewModel.AssessVM.EnterAssessmentScoreCommand.Execute(null);
+                }
+                await Navigation.PopAsync();
+            }
+        }
         public async void RunAttempt()
         {
             var theViewModel = BindingContext as MainViewModel;
@@ -113,6 +119,13 @@ namespace TekkersV2.Views
                     TestAttemptOne.IsVisible = false;
                     TestAttemptTwo.IsVisible = true;
                 }
+            }
+            else if ((theViewModel.AssessVM.theTests.Count != 0) && (TVM.AttemptList[0].AttemptFinished == true && TVM.AttemptList[1].AttemptFinished == true))
+            {
+                await DisplayAlert("Mmmmmmmmmm", "mmmmmmmmmmm", "ok");
+                TVM.AttemptList[0].AttemptFinished = false;
+                TVM.AttemptList[1].AttemptFinished = false;
+                RunAttempt();
             }
         }
 

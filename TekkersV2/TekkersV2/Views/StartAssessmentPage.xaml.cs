@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,6 +43,10 @@ namespace TekkersV2.Views
             Test test2 = new Test(Guid.NewGuid(), "Toe Taps", "Do stuff", DateTime.Now, 0);
             theAssessment.Tests = new List<Test> { test1, test2 };
             theViewModel.AssessVM.PostAssessmentCommand.Execute(theAssessment);
+
+            //List<Test> theTests = theAssessment.Tests.ToList();
+            //theViewModel.AssessVM.theTests = new ObservableCollection<Test>(theTests);
+
             theViewModel.AssessVM.theTests = theAssessment.Tests.ToList();
             await Navigation.PushAsync(new AssessmentDetailsPage(theViewModel));
         }

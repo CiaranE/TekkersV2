@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -15,6 +16,7 @@ namespace TekkersV2.ViewModels
     {
         private List<Assessment> _AssessmentList;
         private List<Test> _Tests;
+        private ObservableCollection<Test> _ObserveTests = new ObservableCollection<Test>();
         private Assessment _Assessment = new Assessment();
         private string _AssessmentName;
         private DateTime _AssessmentDate;
@@ -34,12 +36,23 @@ namespace TekkersV2.ViewModels
             }
         }
 
+
         public List<Test> theTests
         {
             get { return _Tests; }
             set
             {
                 _Tests = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<Test> ObserveTests
+        {
+            get { return _ObserveTests; }
+            set
+            {
+                _ObserveTests = value;
                 OnPropertyChanged();
             }
         }
@@ -166,7 +179,9 @@ namespace TekkersV2.ViewModels
         {
             assessid = this.theAssessment.Id;
             var testServices = new TestServices();
-            AssessMainViewModel.AssessVM.theTests = await testServices.GetAssessmentTestsAsync(assessid);
+            //List<Test> theTests = await testServices.GetAssessmentTestsAsync(assessid);
+            theTests = await testServices.GetAssessmentTestsAsync(assessid);
+            //AssessMainViewModel.AssessVM.theTests = new ObservableCollection<Test>(theTests);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

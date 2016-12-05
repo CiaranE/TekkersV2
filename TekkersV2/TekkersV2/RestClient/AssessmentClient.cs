@@ -94,9 +94,15 @@ namespace Plugin.RestClient.AssessmentClient
 
             httpClient.DefaultRequestHeaders.Add("ZUMO-API-VERSION", "2.0.0");
 
-            var response = await httpClient.DeleteAsync(WebServiceUrl + "EnterAssessmentScore/"+id+"/"+score);
+            var json = JsonConvert.SerializeObject(score);
 
-            return response.IsSuccessStatusCode;
+            HttpContent httpContent = new StringContent(json);
+
+            httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            var result = await httpClient.PutAsync(WebServiceUrl+"PutAssessmentScore/"+id+"/"+score, httpContent);
+
+            return result.IsSuccessStatusCode;
         }
     }
 }
