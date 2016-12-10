@@ -5,6 +5,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using TekkersV2.Models;
+using System.Collections.ObjectModel;
 
 namespace Plugin.RestClient.AssessmentClient
 {
@@ -103,6 +104,19 @@ namespace Plugin.RestClient.AssessmentClient
             var result = await httpClient.PutAsync(WebServiceUrl+"PutAssessmentScore/"+id+"/"+score, httpContent);
 
             return result.IsSuccessStatusCode;
+        }
+
+        public async Task<ObservableCollection<T>> GetTopAssessmentsByAge(int ageGroupPicked)
+        {
+            var httpClient = new HttpClient();
+
+            httpClient.DefaultRequestHeaders.Add("ZUMO-API-VERSION", "2.0.0");
+
+            var json = await httpClient.GetStringAsync(WebServiceUrl+"GetTopAssessmentsByAge/" +ageGroupPicked);
+
+            var assessments = JsonConvert.DeserializeObject<ObservableCollection<T>>(json);
+
+            return assessments;
         }
     }
 }

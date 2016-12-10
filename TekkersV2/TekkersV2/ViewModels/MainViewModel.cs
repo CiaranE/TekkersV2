@@ -1,5 +1,6 @@
 ﻿using Syncfusion.SfChart.XForms;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -15,7 +16,7 @@ namespace TekkersV2.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {
-        private List<Player> _playerList;
+        private ObservableCollection<Player> _playerList;
         private List<Test> _playerTestList;
         private Player _Player = new Player();
         private List<Player> _playersByNameList;
@@ -31,7 +32,7 @@ namespace TekkersV2.ViewModels
         private SfChart _Chart = new SfChart();
 
 
-        public List<Player> PlayerList
+        public ObservableCollection<Player> PlayerList
         {
             get { return _playerList; }
             set
@@ -194,7 +195,8 @@ namespace TekkersV2.ViewModels
                 {
                     IsBusy = true;
                     var playerServices = new PlayerServices();
-                    PlayerList = await playerServices.GetPlayersAsync();
+                    List<Player> list = await playerServices.GetPlayersAsync();
+                    PlayerList = new ObservableCollection<Player>(list);//await playerServices.GetPlayersAsync();
                     IsBusy = false;
                 });
             }
@@ -233,7 +235,8 @@ namespace TekkersV2.ViewModels
                 return new Command(async () =>
                 {
                     var playerServices = new PlayerServices();
-                    PlayerList = await playerServices.GetPlayerByName(_nameToFind);
+                    List<Player> list = await playerServices.GetPlayerByName(_nameToFind);
+                    PlayerList = new ObservableCollection<Player>(list);
                     NameToFind = "";
                 });
             }
@@ -272,7 +275,8 @@ namespace TekkersV2.ViewModels
         public async Task InitialiseDataAsync()
         {
             var playerServices = new PlayerServices();
-            PlayerList = await playerServices.GetPlayersAsync();
+            List<Player> list = await playerServices.GetPlayersAsync();
+            PlayerList = new ObservableCollection<Player>(list);
         }
 
         public async Task<List<Test>> GetTestsForPlayer(string playerid)

@@ -27,12 +27,12 @@
 
         <StackLayout x:Name="TestAttemptOne" IsVisible="False" Orientation="Vertical">
             <Label Text="Enter the score for the first attempt"/>
-            <Entry Text="{Binding TestVM.AttemptOne, Mode=TwoWay}"/>
+            <Entry Text="{Binding TestVM.AttemptOne}"/>
         </StackLayout>
         
         <StackLayout x:Name="ShowAttemptOneScore" Orientation= "Horizontal" IsVisible="False">
             <Label Text="The score for attempt one is"/>
-            <Label Text="{Binding TestVM.AttemptOne, Mode=TwoWay}"/>
+            <Label Text="{Binding TestVM.AttemptOne}"/>
         </StackLayout>
 
         <StackLayout x:Name="TestAttemptTwo" IsVisible="False">

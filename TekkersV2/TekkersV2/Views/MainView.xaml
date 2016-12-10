@@ -24,7 +24,7 @@
         </StackLayout>
 
         <StackLayout HorizontalOptions="FillAndExpand"  VerticalOptions="FillAndExpand">
-                    <datagrid:SfDataGrid x:Name="PlayerDataGrid" 
+            <datagrid:SfDataGrid x:Name="PlayerDataGrid" 
                              ItemsSource="{Binding PlayerList, Mode=TwoWay}" 
                              VerticalOptions="FillAndExpand"
                              AutoGenerateColumns="False"
@@ -39,30 +39,32 @@
                                     PullToRefreshCommand="{Binding RefreshCommand}"
                                      IsBusy="{Binding IsBusy}"
                                      >
-                    <datagrid:SfDataGrid.Columns x:TypeArguments="syncfusion:Columns">
-                        <datagrid:GridTextColumn HeaderText="Name" 
+                <datagrid:SfDataGrid.Columns x:TypeArguments="syncfusion:Columns">
+                    <datagrid:GridTextColumn HeaderText="Name" 
                                              MappingName="FirstName" />
-                        <datagrid:GridTextColumn HeaderText="Surname"
+                    <datagrid:GridTextColumn HeaderText="Surname"
                                              MappingName="LastName" />
-                        <datagrid:GridTextColumn HeaderText="Guardian" 
+                    <datagrid:GridTextColumn HeaderText="Guardian" 
                                              MappingName="ParentFName" />
-                        <datagrid:GridTextColumn HeaderText="Phone"
+                    <datagrid:GridTextColumn HeaderText="Phone"
                                              MappingName="PhoneNum" />
-                        <datagrid:GridTextColumn HeaderText="Team"
+                    <datagrid:GridTextColumn HeaderText="Team"
                                              MappingName="PlayersTeam.TeamName"/>
-                    </datagrid:SfDataGrid.Columns>
+                </datagrid:SfDataGrid.Columns>
 
-                    <datagrid:SfDataGrid.SortColumnDescriptions>
-                        <datagrid:SortColumnDescription ColumnName="FirstName" 
+                <datagrid:SfDataGrid.SortColumnDescriptions>
+                    <datagrid:SortColumnDescription ColumnName="FirstName" 
                                           SortDirection="Ascending" />
-                        <datagrid:SortColumnDescription ColumnName="LastName" 
+                    <datagrid:SortColumnDescription ColumnName="LastName" 
                                           SortDirection="Ascending" />
-                        <datagrid:SortColumnDescription ColumnName="PlayersTeam.TeamName" 
+                    <datagrid:SortColumnDescription ColumnName="PlayersTeam.TeamName" 
                                           SortDirection="Ascending" />
-                    </datagrid:SfDataGrid.SortColumnDescriptions>
-                </datagrid:SfDataGrid>
+                </datagrid:SfDataGrid.SortColumnDescriptions>
+            </datagrid:SfDataGrid>
 
         </StackLayout>
+
+
 
         <StackLayout IsVisible="False">
             <Controls:BindablePicker x:Name="SortByTeamPicker" ItemsSource="{Binding Path=TeamVM.TeamsList}" DisplayMemberPath="TeamName" SelectedItem="{Binding Path=TeamVM.theTeam, Mode=TwoWay}" Title="Sort players by team"/>

@@ -9,6 +9,7 @@ using System.Runtime.CompilerServices;
 using System.Collections.ObjectModel;
 using TekkersV2.Models;
 using TekkersV2.Services;
+using Xamarin.Forms;
 
 namespace TekkersV2.ViewModels
 {
@@ -19,11 +20,15 @@ namespace TekkersV2.ViewModels
         private string _TestName;
         private int _AgeGroup;
         private Team _theTeam;
+        private string _FullName;
+        private ObservableCollection<int> _Scores = new ObservableCollection<int>();
         private ObservableCollection<int> _AgeGroups = new ObservableCollection<int>();
         private ObservableCollection<Player> _AllPlayers = new ObservableCollection<Player>();
         private ObservableCollection<Team> _AllTeams = new ObservableCollection<Team>(); 
-        private List<Player> _PlayersOnTeam = new List<Player>();
-
+        private ObservableCollection<Player> _PlayersOnTeam = new ObservableCollection<Player>();
+        private ObservableCollection<Assessment> _AssessmentsColl = new ObservableCollection<Assessment>();
+        private ObservableCollection<string> _FullNames = new ObservableCollection<string>();
+            
         public string Date
         {
             get { return _Date; }
@@ -40,6 +45,45 @@ namespace TekkersV2.ViewModels
             set
             {
                 _Score = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<int> Scores
+        {
+            get { return _Scores; }
+            set
+            {
+                _Scores = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string FullName
+        {
+            get { return _FullName; }
+            set {
+                _FullName = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<string> FullNames
+        {
+            get { return _FullNames; }
+            set
+            {
+                _FullNames = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<Assessment> AssessmentsColl
+        {
+            get { return _AssessmentsColl; }
+            set
+            {
+                _AssessmentsColl = value;
                 OnPropertyChanged();
             }
         }
@@ -94,7 +138,7 @@ namespace TekkersV2.ViewModels
             }
         }
 
-        public List<Player> PlayersOnTeam
+        public ObservableCollection<Player> PlayersOnTeam
         {
             get { return _PlayersOnTeam; }
             set
@@ -114,19 +158,31 @@ namespace TekkersV2.ViewModels
             }
         }
 
+        public async Task<ObservableCollection<Assessment>> GetTopAssessmentsByAge(int ageGroupPicked)
+        {
+            AssessmentServices a = new AssessmentServices();
+            AssessmentsColl = await a.GetTopAssessmentsByAge(ageGroupPicked);
+            return AssessmentsColl;
+        }
 
         //OVERLOADED CONSTRUCTORS FOR DIFFERENT CHART VIEWS
         public ChartViewModel()
         {
         }
 
-        public ChartViewModel(string XVal, double YVal, string TName)        //Constructor for all player tests chart
+        public ChartViewModel(string XVal, double YVal, string TName)        
         {
             this.Date = XVal;
             this.Score = YVal;
             this.TestName = TName;
         }
 
+        public ChartViewModel(string date, int score, string fname, string lname)
+        {
+            this._Date = date;
+            this._Score = score;
+            this._FullName = fname + " " + lname;
+        }
 
 
         //CHARTVIEWMODEL METHODS FOR GETTING AND SETTING REQUIRED PROPERTY LISTS

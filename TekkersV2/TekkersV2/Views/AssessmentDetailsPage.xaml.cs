@@ -51,7 +51,7 @@ namespace TekkersV2.Views
             }
             else
             {
-                Navigation.PopToRootAsync();
+              Navigation.PopAsync();
             }
             /*if(theViewModel.AssessVM.ObserveTests.Count == 0)
             {

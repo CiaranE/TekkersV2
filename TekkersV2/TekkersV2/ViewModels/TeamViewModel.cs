@@ -170,6 +170,13 @@ namespace TekkersV2.ViewModels
             }
         }
    
+        public async Task<List<Player>> GetPlayersOnTeam(string id)
+        {
+            PlayerServices p = new PlayerServices();
+            TeamsPlayers = await p.GetPlayersOnTeamAsync(id);
+            return TeamsPlayers; 
+        }
+
         //CONSTRUCTOR
         public TeamViewModel()
         {

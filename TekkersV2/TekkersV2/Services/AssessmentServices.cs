@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TekkersV2.Models;
 using Plugin.RestClient.AssessmentClient;
 using Plugin.RestClient.TestClient;
+using System.Collections.ObjectModel;
 
 namespace TekkersV2.Services
 {
@@ -53,6 +54,13 @@ namespace TekkersV2.Services
             var listofAssessments = await client.GetByNameAsync(name);
 
             return listofAssessments;
+        }
+
+        public async Task<ObservableCollection<Assessment>> GetTopAssessmentsByAge(int ageGroupPicked)
+        {
+            AssessmentClient<Assessment> client = new AssessmentClient<Assessment>();
+            var assessments = await client.GetTopAssessmentsByAge(ageGroupPicked);
+            return assessments;
         }
     }
 }

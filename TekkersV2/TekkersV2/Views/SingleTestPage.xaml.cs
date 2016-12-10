@@ -65,6 +65,7 @@ namespace TekkersV2.Views
             bool removetest = theViewModel.AssessVM.theTests.Remove(theTest);
             if (removetest == true)
             {
+                theViewModel.AssessVM.ObserveTests = null;
                 //CHECK ALL TESTS ARE FINISHED, CALCULATE THE ASSESSMENT SCORE AND ADD IT TO THE DATABASE
                 if (theViewModel.AssessVM.theTests.Count == 0)
                 {
@@ -74,17 +75,28 @@ namespace TekkersV2.Views
                     
                     if (theViewModel.AssessVM.theTests != null)
                     {
-                        List<Test> theTests = theViewModel.AssessVM.theTests;
-                        for (int i = 0; i < theTests.Count; i++)
+                        var assessTests = theViewModel.AssessVM.theTests;
+                        for (int i = 0; i < assessTests.Count; i++)
                         {
-                            assessScore += theTests[i].TestScore;
+                            assessScore += assessTests[i].TestScore;
+                            //theViewModel.AssessVM.theTests.Remove(assessTests[i]);
                         }
                     }
                     theViewModel.AssessVM.AssessmentScore = assessScore;
                     await DisplayAlert("Assessment score", "The score for this assessment is " + assessScore, "OK");
                     theViewModel.AssessVM.EnterAssessmentScoreCommand.Execute(null);
+                    theViewModel.AssessVM.AssessmentFinished = true;
+                    //theViewModel.AssessVM.theTests = null;
+                    //await Navigation.PopAsync();
                 }
-                await Navigation.PopAsync();
+                if (theViewModel.AssessVM.AssessmentFinished == false)
+                {
+                    await Navigation.PopAsync();
+                }
+                else if(theViewModel.AssessVM.AssessmentFinished == true)
+                {
+                    await Navigation.PopToRootAsync();
+                }
             }
         }
         public async void RunAttempt()
@@ -122,7 +134,6 @@ namespace TekkersV2.Views
             }
             else if ((theViewModel.AssessVM.theTests.Count != 0) && (TVM.AttemptList[0].AttemptFinished == true && TVM.AttemptList[1].AttemptFinished == true))
             {
-                await DisplayAlert("Mmmmmmmmmm", "mmmmmmmmmmm", "ok");
                 TVM.AttemptList[0].AttemptFinished = false;
                 TVM.AttemptList[1].AttemptFinished = false;
                 RunAttempt();

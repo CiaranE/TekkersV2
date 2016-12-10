@@ -25,6 +25,7 @@ namespace TekkersV2.ViewModels
         private Player _AssessmentPlayer;
         private string _Player_Id;
         private int _AssessmentScore;
+        private bool _AssessmentFinished = false;
 
         public List<Assessment> AssessmentList
         {
@@ -53,6 +54,16 @@ namespace TekkersV2.ViewModels
             set
             {
                 _ObserveTests = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool AssessmentFinished
+        {
+            get { return _AssessmentFinished; }
+            set
+            {
+                _AssessmentFinished = value;
                 OnPropertyChanged();
             }
         }

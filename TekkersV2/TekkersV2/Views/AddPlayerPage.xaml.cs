@@ -18,7 +18,7 @@ namespace TekkersV2.Views
         public AddPlayerPage()
         {
             InitializeComponent();
-            DatePicker.MinimumDate = DateTime.Now.AddYears(-13);
+            DatePicker.MinimumDate = DateTime.Now.AddYears(-12);
             DatePicker.MaximumDate = DateTime.Now.AddYears(-7);
         }
 
