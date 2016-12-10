@@ -16,8 +16,6 @@ namespace TekkersV2.Models
 
         public int AssessmentScore { get; set; }
 
-        //public int AssessmentScore { get; set; }
-
         public virtual ICollection<Test> Tests { get; set; }
 
         public virtual Player Player { get; set; }

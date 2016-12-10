@@ -12,8 +12,11 @@
 
     <StackLayout Orientation="Vertical" Spacing="18">
 
-        <Button Text="Edit player" Clicked="EditPlayerEvent"></Button>
-        <Button Text="Delete player" Clicked="DeletePlayerEvent"></Button>
+        <StackLayout Orientation="Horizontal">
+            <Button Text="Edit player" Clicked="EditPlayerEvent"></Button>
+            <Button Text="Delete player" Clicked="DeletePlayerEvent"></Button>
+            <Button Text="Assess player" Clicked="AssessPlayerEvent"></Button>
+        </StackLayout>
 
         <StackLayout Orientation="Horizontal">
             <Label Text="Name:"
@@ -61,10 +64,6 @@
             <Label Text="{Binding Player.PlayersTeam.TeamName}"/>
         </StackLayout>
 
-        <StackLayout>
-             <Button Text="Assess player" Clicked="AssessPlayerEvent"></Button>
-        </StackLayout>
-            
         <StackLayout>
             <Picker x:Name="ChartPicker" Title="Select chart:" SelectedIndex="0" SelectedIndexChanged="ShowChartEvent"/>
         </StackLayout>

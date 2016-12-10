@@ -118,6 +118,19 @@ namespace Plugin.RestClient.AssessmentClient
 
             return assessments;
         }
+
+        public async Task<T> GetMostRecentAssessmentForPlayer(string playerId)
+        {
+            var httpClient = new HttpClient();
+
+            httpClient.DefaultRequestHeaders.Add("ZUMO-API-VERSION", "2.0.0");
+
+            var json = await httpClient.GetStringAsync(WebServiceUrl + "GetMostRecentAssessmentForPlayer/"+ playerId);
+
+            var assessment = JsonConvert.DeserializeObject<T>(json);
+
+            return assessment;
+        }
     }
 }
 

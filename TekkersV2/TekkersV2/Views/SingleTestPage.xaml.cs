@@ -130,6 +130,7 @@ namespace TekkersV2.Views
                 {
                     TestAttemptOne.IsVisible = false;
                     TestAttemptTwo.IsVisible = true;
+                    SecondAttemptButton.IsVisible = false;
                 }
             }
             else if ((theViewModel.AssessVM.theTests.Count != 0) && (TVM.AttemptList[0].AttemptFinished == true && TVM.AttemptList[1].AttemptFinished == true))

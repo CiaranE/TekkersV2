@@ -195,6 +195,13 @@ namespace TekkersV2.ViewModels
             //AssessMainViewModel.AssessVM.theTests = new ObservableCollection<Test>(theTests);
         }
 
+        public Task<Assessment> GetMostRecentAssessmentForPlayer(string playerId)
+        {
+            var assessmentServices = new AssessmentServices();
+            var a = assessmentServices.GetMostRecentAssessmentForPlayer(playerId);
+            return a;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
