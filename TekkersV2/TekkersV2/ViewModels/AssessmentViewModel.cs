@@ -202,6 +202,13 @@ namespace TekkersV2.ViewModels
             return a;
         }
 
+        public async Task<List<Assessment>> GetAllAssessmentsForPlayer(string id)
+        {
+            var assessmentServices = new AssessmentServices();
+            AssessmentList = await assessmentServices.GetAllAssessmentsForPlayer(id);
+            return AssessmentList;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

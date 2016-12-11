@@ -4,7 +4,8 @@
              x:Class="TekkersV2.Views.MainView"
              xmlns:ViewModels="clr-namespace:TekkersV2.ViewModels; assembly=TekkersV2"
              xmlns:Controls="clr-namespace:TekkersV2.Controls; assembly=TekkersV2"
-             xmlns:datagrid="clr-namespace:Syncfusion.SfDataGrid.XForms;assembly=Syncfusion.SfDataGrid.XForms">
+             xmlns:datagrid="clr-namespace:Syncfusion.SfDataGrid.XForms;assembly=Syncfusion.SfDataGrid.XForms"
+             xmlns:sfpager="clr-namespace:Syncfusion.SfDataGrid.XForms.DataPager;assembly=Syncfusion.SfDataGrid.XForms">
 
     <ContentPage.BindingContext>
         <ViewModels:MainViewModel/>
@@ -18,14 +19,28 @@
             <Button Text="See reports" Clicked="GoToReporting"></Button>
         </StackLayout>
 
-        <StackLayout Orientation="Horizontal">
+        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
             <Entry Text="{Binding NameToFind, Mode=TwoWay}" Placeholder="Search for player"/>
             <Button Text="Search" Command="{Binding FindByNameCommand}"/>
         </StackLayout>
 
-        <StackLayout HorizontalOptions="FillAndExpand"  VerticalOptions="FillAndExpand">
-            <datagrid:SfDataGrid x:Name="PlayerDataGrid" 
-                             ItemsSource="{Binding PlayerList, Mode=TwoWay}" 
+        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+           <!-- <Grid HorizontalOptions="FillAndExpand"  VerticalOptions="FillAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>-->
+
+            <!--<sfpager:SfDataPager x:Name ="sfDataPager"
+                           Grid.Row="0"           
+                           PageSize="10" 
+                           HeightRequest ="50"
+                           NumericButtonCount="10"
+                           Source="{Binding PlayerList}">
+            </sfpager:SfDataPager>-->
+            
+                <datagrid:SfDataGrid x:Name="PlayerDataGrid" 
+                                     ItemsSource="{Binding PlayerList}"
                              VerticalOptions="FillAndExpand"
                              AutoGenerateColumns="False"
                                  ColumnSizer="Star"
@@ -39,31 +54,34 @@
                                     PullToRefreshCommand="{Binding RefreshCommand}"
                                      IsBusy="{Binding IsBusy}"
                                      >
-                <datagrid:SfDataGrid.Columns x:TypeArguments="syncfusion:Columns">
-                    <datagrid:GridTextColumn HeaderText="Name" 
+                    <datagrid:SfDataGrid.Columns x:TypeArguments="syncfusion:Columns">
+                        <datagrid:GridTextColumn HeaderText="Name" 
                                              MappingName="FirstName" />
-                    <datagrid:GridTextColumn HeaderText="Surname"
+                        <datagrid:GridTextColumn HeaderText="Surname"
                                              MappingName="LastName" />
-                    <datagrid:GridTextColumn HeaderText="Guardian" 
+                        <datagrid:GridTextColumn HeaderText="Guardian" 
                                              MappingName="ParentFName" />
-                    <datagrid:GridTextColumn HeaderText="Phone"
+                        <datagrid:GridTextColumn HeaderText="Phone"
                                              MappingName="PhoneNum" />
-                    <datagrid:GridTextColumn HeaderText="Team"
+                        <datagrid:GridTextColumn HeaderText="Team"
                                              MappingName="PlayersTeam.TeamName"/>
-                </datagrid:SfDataGrid.Columns>
+                    </datagrid:SfDataGrid.Columns>
 
-                <datagrid:SfDataGrid.SortColumnDescriptions>
-                    <datagrid:SortColumnDescription ColumnName="FirstName" 
+                    <datagrid:SfDataGrid.SortColumnDescriptions>
+                        <datagrid:SortColumnDescription ColumnName="FirstName" 
                                           SortDirection="Ascending" />
-                    <datagrid:SortColumnDescription ColumnName="LastName" 
+                        <datagrid:SortColumnDescription ColumnName="LastName" 
                                           SortDirection="Ascending" />
-                    <datagrid:SortColumnDescription ColumnName="PlayersTeam.TeamName" 
+                        <datagrid:SortColumnDescription ColumnName="PlayersTeam.TeamName" 
                                           SortDirection="Ascending" />
-                </datagrid:SfDataGrid.SortColumnDescriptions>
-            </datagrid:SfDataGrid>
+                    </datagrid:SfDataGrid.SortColumnDescriptions>
 
+
+
+                </datagrid:SfDataGrid>
+            
+   <!--     </Grid>-->
         </StackLayout>
-
 
 
         <StackLayout IsVisible="False">

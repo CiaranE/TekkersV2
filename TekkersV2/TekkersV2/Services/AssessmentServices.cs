@@ -69,5 +69,12 @@ namespace TekkersV2.Services
             Assessment a = await client.GetMostRecentAssessmentForPlayer(playerId);
             return a;
         }
+
+        public async Task<List<Assessment>> GetAllAssessmentsForPlayer(string playerId)
+        {
+            AssessmentClient<Assessment> client = new AssessmentClient<Assessment>();
+            List<Assessment> playerAss = await client.GetAllAssessmentsForPlayer(playerId);
+            return playerAss;
+        }
     }
 }

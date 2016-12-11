@@ -26,7 +26,7 @@ namespace TekkersV2.Views
             BindingContext = mainViewModel;
 
             ChartPicker.Items.Add("See player test results");
-            ChartPicker.Items.Add("See assessments");
+            ChartPicker.Items.Add("See player progress");
             ChartPicker.Items.Add("See something else");
             ChartPicker.Items.Add("See another thing");
 
@@ -80,7 +80,10 @@ namespace TekkersV2.Views
             switch (chartPicked)
             {
                 case "See player test results":
+                    ChartGrid.Children.Clear();
                     var chart = theViewModel.Chart;
+                    chart = new SfChart();
+                    theViewModel.DataPoints = null;
                     await theViewModel.GetTestsForPlayer(p.Id);
                     List<Test> playertestdata = theViewModel.PlayerTestList;
                     //List<DateTime> dates = playertestdata.Select(d => d.TestDate).ToList();
@@ -98,7 +101,7 @@ namespace TekkersV2.Views
                     chart.PrimaryAxis.Title.Text = "Date";
                     chart.Legend = new ChartLegend();
                     chart.Legend.DockPosition = LegendPlacement.Top;
-                    chart.Legend.Title.Text = "Test name";
+                    //chart.Legend.Title.Text = "Test name";
                     //chart.PrimaryAxis = new CategoryAxis() { Interval = 2, LabelPlacement = LabelPlacement.BetweenTicks };
                     chart.SecondaryAxis = new NumericalAxis() { Minimum = 0, Maximum = 100, Interval = 5 };
                     chart.SecondaryAxis.Title.Text = "Score";
@@ -108,21 +111,74 @@ namespace TekkersV2.Views
                         ItemsSource = theViewModel.DataPoints.Where(cvm => cvm.TestName.Contains("Toe Taps")),
                         XBindingPath = "Date",
                         YBindingPath = "Score",
-                        Label = "Toe Taps"
+                        Label = "Toe Taps",
+                        EnableTooltip = true,
+                        EnableDataPointSelection = true,
+                        EnableAnimation = true
                     });
                     chart.Series.Add(new ColumnSeries()
                     {
                         ItemsSource = theViewModel.DataPoints.Where(cvm => cvm.TestName.Contains("Foundations")),
                         XBindingPath = "Date",
                         YBindingPath = "Score",
-                        Label = "Foundations"
+                        Label = "Foundations",
+                        EnableTooltip = true,
+                        EnableDataPointSelection = true,
+                        EnableAnimation = true
                     });
                     ChartGrid.Children.Add(chart);
                     break;
 
-                case "See assessments":
-                    await DisplayAlert(p.FirstName+" "+p.LastName, "Selected", "OK");
-                    break;
+                case "See player progress":
+                    chart = theViewModel.Chart;
+                    chart = new SfChart();
+                    theViewModel.DataPoints = null;
+
+                    //Maybe for comparison
+                    //List<Player> team = theViewModel.Player.PlayersTeam.TeamPlayers.ToList();
+                    await theViewModel.AssessVM.GetAllAssessmentsForPlayer(p.Id);
+                    
+                    List<Assessment> allPlayerA = theViewModel.AssessVM.AssessmentList;
+                    theViewModel.DataPoints = new ObservableCollection<ChartViewModel>();
+                    string dateForm = "dd/MM/yyyy";
+                    if (allPlayerA.Count > 1)
+                    {
+                        foreach (var a in allPlayerA)
+                        {
+                            ChartViewModel c = new ChartViewModel(a.AssessmentDate.ToString(dateForm), a.AssessmentScore, a.Player.FirstName, a.Player.LastName);
+                            theViewModel.DataPoints.Add(c);
+                        }
+                        chart.PrimaryAxis = new CategoryAxis();
+                        chart.PrimaryAxis.Title.Text = "Date";
+                        chart.Legend = new ChartLegend();
+                        chart.Legend.DockPosition = LegendPlacement.Top;
+                        chart.Legend.Title.Text = p.FirstName + "'s progress";
+                        //chart.PrimaryAxis = new CategoryAxis() { Interval = 2, LabelPlacement = LabelPlacement.BetweenTicks };
+                        chart.SecondaryAxis = new NumericalAxis() { Minimum = 0, Maximum = 100, Interval = 10 };
+                        chart.SecondaryAxis.Title.Text = "Score";
+                        chart.Title.Text = p.FirstName + "'s progress";
+                        chart.Series.Add(new LineSeries()
+                        {
+                            ItemsSource = theViewModel.DataPoints,
+                            XBindingPath = "Date",
+                            YBindingPath = "Score",
+                            Label = "Assessments",
+                            EnableTooltip = true,
+                            EnableDataPointSelection = true,
+                            EnableAnimation = true
+                        });
+                        ChartGrid.Children.Add(chart);
+                    }
+                    else if(allPlayerA.Count == 1)
+                    {
+                        await DisplayAlert("No progress report possible", "This player has had only one assessment", "OK");
+                    }
+                    else if(allPlayerA == null)
+                    {
+                        await DisplayAlert("No progress report possible", "This player has not been assessed yet", "OK");
+                    }
+                        break;
+
                 case "See another thing":
                     await DisplayAlert(p.FirstName + " " + p.LastName, "Selected", "OK");
                     break;

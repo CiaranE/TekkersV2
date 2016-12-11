@@ -12,6 +12,7 @@ namespace TekkersV2.Views
         public MainView()
         {
             InitializeComponent();
+            //this.PlayerDataGrid.ItemsSource = sfDataPager.PagedSource;
         }
 
         private async void AddPlayerEvent(object sender, EventArgs e)

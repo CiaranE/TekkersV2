@@ -23,7 +23,7 @@ namespace TekkersV2.Views
             InitializeComponent();
             BindingContext = mainviewmodel;
             mainviewmodel.TeamVM.GetAllAgeGroups.Execute(null);
-            FormPicker.Items.Add("Top 10 players by agegroup");
+            FormPicker.Items.Add("Top five assessmeents by agegroup");
             FormPicker.Items.Add("See player scores by team");
             FormPicker.Items.Add("Most improved since last assessment");
             FormPicker.Items.Add("Top 10 by test in each agegroup");
@@ -109,7 +109,10 @@ namespace TekkersV2.Views
                 {
                     ItemsSource = theViewModel.DataPoints.Where(cvm => cvm.Score > 0),
                     XBindingPath = "FullName",
-                    YBindingPath = "Score"
+                    YBindingPath = "Score",
+                    EnableAnimation = true,
+                    EnableDataPointSelection = true,
+                    EnableTooltip = true
                 });
                 /*chart.Series.Add(new ColumnSeries()
                 {
@@ -173,7 +176,10 @@ namespace TekkersV2.Views
                     {
                         ItemsSource = theViewModel.DataPoints.Where(cvm => cvm.Score > 0),
                         XBindingPath = "FullName",
-                        YBindingPath = "Score"
+                        YBindingPath = "Score",
+                        EnableAnimation = true,
+                        EnableDataPointSelection = true,
+                        EnableTooltip = true
                     });
                     theChartGrid.Children.Add(chart);
                     chart.IsVisible = true;

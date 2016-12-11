@@ -32,7 +32,7 @@
                 <StackLayout x:Name="UnassessedPlayers" IsVisible="False" Orientation="Horizontal">
                     <StackLayout Orientation="Vertical">
                         <Label Text="The following players on this team have yet to be assessed:"/>
-                        <!--<StackLayout Orientation="Horizontal">
+                        <StackLayout Orientation="Horizontal">
                             <ListView ItemsSource ="{Binding ChartVM.FullNames, Mode=TwoWay}">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
@@ -45,16 +45,7 @@
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
-                        </StackLayout>-->
-                        <ContentView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-                            <CarouselView ItemsSource="{Binding ChartVM.FullNames}">
-                                <CarouselView.ItemTemplate>
-                                    <DataTemplate>
-                                        <Label Text="{Binding}" />
-                                    </DataTemplate>
-                                </CarouselView.ItemTemplate>
-                            </CarouselView>
-                        </ContentView>
+                        </StackLayout>
                     </StackLayout>
                 </StackLayout>
                 <StackLayout x:Name="MakeChartButtonOne" IsVisible="False">
