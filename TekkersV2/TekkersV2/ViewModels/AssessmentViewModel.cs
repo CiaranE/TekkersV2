@@ -15,8 +15,8 @@ namespace TekkersV2.ViewModels
     public class AssessmentViewModel : INotifyPropertyChanged
     {
         private List<Assessment> _AssessmentList;
-        private List<Test> _Tests;
-        private ObservableCollection<Test> _ObserveTests = new ObservableCollection<Test>();
+        private ObservableCollection<Test> _Tests;
+       // private ObservableCollection<Test> _ObserveTests = new ObservableCollection<Test>();
         private Assessment _Assessment = new Assessment();
         private string _AssessmentName;
         private DateTime _AssessmentDate;
@@ -38,7 +38,7 @@ namespace TekkersV2.ViewModels
         }
 
 
-        public List<Test> theTests
+        public ObservableCollection<Test> theTests
         {
             get { return _Tests; }
             set
@@ -48,7 +48,7 @@ namespace TekkersV2.ViewModels
             }
         }
 
-        public ObservableCollection<Test> ObserveTests
+       /* public ObservableCollection<Test> ObserveTests
         {
             get { return _ObserveTests; }
             set
@@ -56,7 +56,7 @@ namespace TekkersV2.ViewModels
                 _ObserveTests = value;
                 OnPropertyChanged();
             }
-        }
+        }*/
 
         public bool AssessmentFinished
         {
@@ -191,7 +191,8 @@ namespace TekkersV2.ViewModels
             assessid = this.theAssessment.Id;
             var testServices = new TestServices();
             //List<Test> theTests = await testServices.GetAssessmentTestsAsync(assessid);
-            theTests = await testServices.GetAssessmentTestsAsync(assessid);
+            List<Test> TestList = await testServices.GetAssessmentTestsAsync(assessid);
+            theTests = new ObservableCollection<Test>(TestList);
             //AssessMainViewModel.AssessVM.theTests = new ObservableCollection<Test>(theTests);
         }
 

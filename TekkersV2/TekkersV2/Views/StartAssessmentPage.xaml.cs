@@ -47,7 +47,7 @@ namespace TekkersV2.Views
             //List<Test> theTests = theAssessment.Tests.ToList();
             //theViewModel.AssessVM.theTests = new ObservableCollection<Test>(theTests);
 
-            theViewModel.AssessVM.theTests = theAssessment.Tests.ToList();
+            theViewModel.AssessVM.theTests = new ObservableCollection<Test>(theAssessment.Tests.ToList());
             await Navigation.PushAsync(new AssessmentDetailsPage(theViewModel));
         }
     }

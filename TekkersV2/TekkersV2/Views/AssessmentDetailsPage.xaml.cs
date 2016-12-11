@@ -45,9 +45,9 @@ namespace TekkersV2.Views
 
             if (theViewModel.AssessVM.theTests.Count != 0)
             {
-                List<Test> thetests = theViewModel.AssessVM.theTests;
-                theViewModel.AssessVM.ObserveTests = new ObservableCollection<Test>(theViewModel.AssessVM.theTests);
-                TestListView.ItemsSource = theViewModel.AssessVM.ObserveTests;
+                ObservableCollection<Test> thetests = theViewModel.AssessVM.theTests;
+                //theViewModel.AssessVM.theTests = new ObservableCollection<Test>(theViewModel.AssessVM.theTests);
+                TestListView.ItemsSource = theViewModel.AssessVM.theTests;
             }
             else
             {

@@ -65,40 +65,55 @@ namespace TekkersV2.Views
             bool removetest = theViewModel.AssessVM.theTests.Remove(theTest);
             if (removetest == true)
             {
-                theViewModel.AssessVM.ObserveTests = null;
+                //theViewModel.AssessVM.theTests = null;
                 //CHECK ALL TESTS ARE FINISHED, CALCULATE THE ASSESSMENT SCORE AND ADD IT TO THE DATABASE
                 if (theViewModel.AssessVM.theTests.Count == 0)
                 {
                     var assessScore = 0;
                     Assessment assessment = theViewModel.AssessVM.theAssessment;
                     await theViewModel.AssessVM.GetAssessmentTestsAsync(assessment.Id);
-                    
+
                     if (theViewModel.AssessVM.theTests != null)
                     {
+
                         var assessTests = theViewModel.AssessVM.theTests;
-                        for (int i = 0; i < assessTests.Count; i++)
+
+                        foreach(var test in assessTests)
+                        {
+                            assessScore += test.TestScore;
+                        }
+
+                        /*for (int i = 0; i < assessTests.Count; i++)
                         {
                             assessScore += assessTests[i].TestScore;
                             //theViewModel.AssessVM.theTests.Remove(assessTests[i]);
-                        }
+                        }*/
                     }
+                    theViewModel.AssessVM.theTests = null;
                     theViewModel.AssessVM.AssessmentScore = assessScore;
                     await DisplayAlert("Assessment score", "The score for this assessment is " + assessScore, "OK");
                     theViewModel.AssessVM.EnterAssessmentScoreCommand.Execute(null);
                     theViewModel.AssessVM.AssessmentFinished = true;
                     //theViewModel.AssessVM.theTests = null;
                     //await Navigation.PopAsync();
+
+                    if (theViewModel.AssessVM.AssessmentFinished == false)
+                    {
+                        await Navigation.PopAsync();
+                    }
+                    else if (theViewModel.AssessVM.AssessmentFinished == true)
+                    {
+                        await Navigation.PopToRootAsync();
+                    }
                 }
-                if (theViewModel.AssessVM.AssessmentFinished == false)
+                else
                 {
                     await Navigation.PopAsync();
                 }
-                else if(theViewModel.AssessVM.AssessmentFinished == true)
-                {
-                    await Navigation.PopToRootAsync();
-                }
             }
         }
+
+
         public async void RunAttempt()
         {
             var theViewModel = BindingContext as MainViewModel;

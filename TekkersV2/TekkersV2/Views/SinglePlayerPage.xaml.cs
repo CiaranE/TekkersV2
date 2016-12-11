@@ -156,7 +156,7 @@ namespace TekkersV2.Views
                         //chart.PrimaryAxis = new CategoryAxis() { Interval = 2, LabelPlacement = LabelPlacement.BetweenTicks };
                         chart.SecondaryAxis = new NumericalAxis() { Minimum = 0, Maximum = 100, Interval = 10 };
                         chart.SecondaryAxis.Title.Text = "Score";
-                        chart.Title.Text = p.FirstName + "'s progress";
+                        //chart.Title.Text = p.FirstName + "'s progress";
                         chart.Series.Add(new LineSeries()
                         {
                             ItemsSource = theViewModel.DataPoints,
