@@ -74,7 +74,7 @@ namespace TekkersV2.ViewModels
             set
             {
                 _FullNames = value;
-                OnPropertyChanged();
+                OnPropertyChanged("FullNames");
             }
         }
 

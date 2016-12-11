@@ -23,10 +23,10 @@ namespace TekkersV2.Views
             InitializeComponent();
             BindingContext = mainviewmodel;
             mainviewmodel.TeamVM.GetAllAgeGroups.Execute(null);
-            FormPicker.Items.Add("Top five assessmeents by agegroup");
-            FormPicker.Items.Add("See player scores by team");
-            FormPicker.Items.Add("Most improved since last assessment");
-            FormPicker.Items.Add("Top 10 by test in each agegroup");
+            FormPicker.Items.Add("Top five assessments by agegroup");
+            FormPicker.Items.Add("See most recent player scores by team");
+            FormPicker.Items.Add("Player progress by team");
+            FormPicker.Items.Add("Top five by test in each agegroup");
             FormPicker.Items.Add("See player progression by assessment");
         }
 
@@ -37,15 +37,16 @@ namespace TekkersV2.Views
 
             switch (formPicked)
             {
-                case "Top 10 players by agegroup":
+                case "Top five assessments by agegroup":
                     TopTenByAgeFormHolder.IsVisible = true;
                     break;
-                case "See player scores by team":
+                case "See most recent player scores by team":
                     PlayerScoresByTeam.IsVisible = true;
                     MakeChartButtonOne.IsVisible = true;
                     break;
-                case "Top five most improved since last assessment":
-                    await DisplayAlert("Something", "Selected", "OK");
+                case "Player progress by team":
+                    ProgressByTeam.IsVisible = true;
+                    MakeChartButtonTwo.IsVisible = true;
                     break;
                 case "Top ten players by test in an age group":
                     await DisplayAlert("Something", "Selected", "OK");
@@ -74,7 +75,7 @@ namespace TekkersV2.Views
 
 
             //MAKE THE CHART FOR THE TOP FIVE PLAYERS BY AGE GROUP
-            if(TopTenByAgeFormHolder.IsVisible == true)
+            if (TopTenByAgeFormHolder.IsVisible == true)
             {
                 theChartGrid.Children.Clear();
                 theViewModel.Chart = new SfChart();
@@ -91,7 +92,7 @@ namespace TekkersV2.Views
                 var scores = vm.AssessmentsColl.Select(ac => ac.AssessmentScore).ToList();
                 string dateFormat = "dd/MM/yyyy";
                 theViewModel.DataPoints = new ObservableCollection<ChartViewModel>();
-                foreach(var c in vm.AssessmentsColl)
+                foreach (var c in vm.AssessmentsColl)
                 {
                     ChartViewModel thechart = new ChartViewModel(c.AssessmentDate.ToString(dateFormat), c.AssessmentScore, c.Player.FirstName, c.Player.LastName);
                     theViewModel.DataPoints.Add(thechart);
@@ -126,11 +127,11 @@ namespace TekkersV2.Views
             }
 
             //MAKE THE CHART FOR THE MOST RECENT SCORES FOR ALL TEAM MEMBERS
-            else if(PlayerScoresByTeam.IsVisible == true)
+            else if (PlayerScoresByTeam.IsVisible == true)
             {
                 theChartGrid.Children.Clear();
                 theViewModel.Chart = new SfChart();
-                UnassessedPlayers.IsVisible = true;
+                //var vm = theViewModel.ChartVM;
                 if (ChartTeamPicker.SelectedItem == null)
                 {
                     await DisplayAlert("Warning", "You need to choose a team", "OK");
@@ -141,24 +142,24 @@ namespace TekkersV2.Views
                     PlayerScoresByTeam.IsVisible = false;
                     MakeChartButtonOne.IsVisible = false;
                     var chart = theViewModel.Chart;
-                    var vm = theViewModel.ChartVM;
+                    //var vm = theViewModel.ChartVM;
                     var tvm = theViewModel.TeamVM;
 
                     var teamPicked = ChartTeamPicker.SelectedItem as Team;
                     theViewModel.TeamVM.theTeam = teamPicked;
-                    
+
                     //theViewModel.TeamVM.GetPlayersOnTeamCommand.Execute(tvm.theTeam.Id);
                     await tvm.GetPlayersOnTeam(teamPicked.Id);
                     List<Player> players = tvm.TeamsPlayers;
                     List<Assessment> mostRecentAssessments = new List<Assessment>();
                     string dateFormat = "dd/MM/yyyy";
                     theViewModel.DataPoints = new ObservableCollection<ChartViewModel>();
-                    foreach ( var p in players)
+                    foreach (var p in players)
                     {
                         var a = await theViewModel.AssessVM.GetMostRecentAssessmentForPlayer(p.Id);
                         if (a == null)
                         {
-                            vm.FullNames.Add(p.FirstName + " " + p.LastName);
+                            theViewModel.ChartVM.FullNames.Add(p.FirstName + " " + p.LastName);
                         }
                         else if (a != null)
                         {
@@ -167,6 +168,11 @@ namespace TekkersV2.Views
                             theViewModel.DataPoints.Add(thechart);
                         }
                     }
+
+                    //UnassessedPlayers.IsVisible = true;
+                    string names = GetUnassessedNames(theViewModel.ChartVM.FullNames);
+                    await DisplayAlert("Players on this team have yet to be assessed", names, "OK");
+                    theViewModel.ChartVM.FullNames = null;
                     chart.PrimaryAxis = new CategoryAxis();
                     chart.PrimaryAxis.Title.Text = "Name";
                     chart.SecondaryAxis = new NumericalAxis() { Minimum = 0, Maximum = 100, Interval = 10 };
@@ -174,7 +180,7 @@ namespace TekkersV2.Views
                     chart.Title.Text = "Most recent assessment score for players on " + tvm.theTeam.TeamName;
                     chart.Series.Add(new ColumnSeries()
                     {
-                        ItemsSource = theViewModel.DataPoints.Where(cvm => cvm.Score > 0),
+                        ItemsSource = theViewModel.DataPoints,
                         XBindingPath = "FullName",
                         YBindingPath = "Score",
                         EnableAnimation = true,
@@ -183,8 +189,106 @@ namespace TekkersV2.Views
                     });
                     theChartGrid.Children.Add(chart);
                     chart.IsVisible = true;
+                    theViewModel.ChartVM.FullNames = null;
                 }
             }
+            //SEE PLAYER PROGRESS BY TEAM
+            else if (ProgressByTeam.IsVisible == true)
+            {
+                theChartGrid.Children.Clear();
+                theViewModel.Chart = new SfChart();
+                //var vm = theViewModel.ChartVM;
+                if (ChartTeamPickerOne.SelectedItem == null)
+                {
+                    await DisplayAlert("Warning", "You need to choose a team", "OK");
+                }
+                else
+                {
+                    theViewModel.DataPoints = null;
+                    ProgressByTeam.IsVisible = false;
+                    MakeChartButtonTwo.IsVisible = false;
+                    var chart = theViewModel.Chart;
+                    //var vm = theViewModel.ChartVM;
+                    var tvm = theViewModel.TeamVM;
+
+                    var teamPicked = ChartTeamPickerOne.SelectedItem as Team;
+                    theViewModel.TeamVM.theTeam = teamPicked;
+                    string dateFormat = "dd/MM/yyyy";
+                    //theViewModel.DataPoints = new ObservableCollection<ChartViewModel>();
+                    //theViewModel.TeamVM.GetPlayersOnTeamCommand.Execute(tvm.theTeam.Id);
+                    await tvm.GetPlayersOnTeam(teamPicked.Id);
+                    List<Player> players = tvm.TeamsPlayers;
+                    List<Player> playersWithAssessments = new List<Player>();
+                    ObservableCollection<ObservableCollection<ChartViewModel>> collectionOfCollections = new ObservableCollection<ObservableCollection<ChartViewModel>>();
+                    // List<Assessment> playerAssessments = new List<Assessment>();
+                   
+                    foreach(var p in players)
+                    {
+                        List<Assessment> playerAssessments = new List<Assessment>();
+                        theViewModel.DataPoints = new ObservableCollection<ChartViewModel>();
+                        //var playerAss = p.PlayerAssessments;
+                        var playerAss = await theViewModel.AssessVM.GetAllAssessmentsForPlayer(p.Id);
+                        if (playerAss == null || playerAss.Count == 1)
+                        {
+                            theViewModel.ChartVM.FullNames.Add(p.FirstName + " " + p.LastName);
+                        }
+                        else if (playerAss != null && playerAss.Count > 1)
+                        {
+                            playersWithAssessments.Add(p);
+
+                            foreach (var a in playerAss)
+                            {
+                                playerAssessments.Add(a);
+                                ChartViewModel thechart = new ChartViewModel(a.AssessmentDate.ToString(dateFormat), a.AssessmentScore, p.FirstName, p.LastName);
+                                theViewModel.DataPoints.Add(thechart);
+                                
+                                
+                                // collectionOfCollections.Add(theViewModel.DataPoints);
+                            }
+                            chart.Series.Add(new SplineSeries()
+                            {
+                                ItemsSource = theViewModel.DataPoints,
+                                XBindingPath = "Date",
+                                YBindingPath = "Score",
+                                Label = p.FirstName+" "+p.LastName,
+                                EnableAnimation = true,
+                                EnableDataPointSelection = true,
+                                EnableTooltip = true
+                            });
+                        }
+                    }
+
+
+                    //UnassessedPlayers.IsVisible = true;
+                    string names = GetUnassessedNames(theViewModel.ChartVM.FullNames);
+                    await DisplayAlert("Players on this team that have yet to be assessed or have had only one assessment", names, "OK");
+                    chart.PrimaryAxis = new CategoryAxis();
+                    chart.PrimaryAxis.Title.Text = "Date";
+                    //chart.PrimaryAxis.IsVisible = false;
+                    chart.SecondaryAxis = new NumericalAxis() { Minimum = 0, Maximum = 100, Interval = 10 };
+                    chart.SecondaryAxis.Title.Text = "Score";
+                    chart.Legend = new ChartLegend();
+                    chart.Legend.ToggleSeriesVisibility = true;
+
+                    chart.Title.Text = "Progress of players on " + tvm.theTeam.TeamName;
+                    theChartGrid.Children.Add(chart);
+                    chart.IsVisible = true;
+                    theViewModel.ChartVM.FullNames = null;
+                }
+            }
+        }
+
+
+            //Converts unassessed players to string for display alert
+            public string GetUnassessedNames(ObservableCollection<string> names)
+        {
+            List<string> theNames = names.ToList();
+            string alertList = "";
+            foreach(var n in theNames)
+            {
+                alertList += n + "\n";
+            }
+            return alertList;
         }
     }
 }
