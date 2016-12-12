@@ -18,7 +18,7 @@
 
             <StackLayout x:Name="TopTenByAgeFormHolder" IsVisible="False">
                 <StackLayout>
-                    <controls:BindablePicker x:Name="AgeGroupPicker" Title="Players born in year:" ItemsSource="{Binding Path = TeamVM.AgeGroups}" DisplayMemberPath="" SelectedItem="{Binding Path = ChartVM.AgeGroup, Mode = TwoWay}" SelectedIndexChanged="ShowMakeChartButton"/>
+                    <controls:BindablePicker x:Name="AgeGroupPicker" Title="Players born in year:" ItemsSource="{Binding Path = TeamVM.AgeGroups}" DisplayMemberPath="" SelectedItem="{Binding Path = ChartVM.AgeGroup}" SelectedIndexChanged="ShowMakeChartButton"/>
                 </StackLayout>
                 <StackLayout x:Name="MakeChartButton" IsVisible="False">
                     <Button Text="Make chart" Clicked="MakeChart"></Button>
@@ -27,7 +27,7 @@
 
             <StackLayout x:Name="PlayerScoresByTeam" IsVisible="False">
                 <StackLayout x:Name="TeamPicker">
-                    <controls:BindablePicker x:Name="ChartTeamPicker" Title="Pick the team" ItemsSource="{Binding Path = TeamVM.TeamsList}" DisplayMemberPath="TeamName" SelectedItem="{Binding Path = TeamVM.theTeam, Mode = TwoWay}"/>
+                    <controls:BindablePicker x:Name="ChartTeamPicker" Title="Pick the team" ItemsSource="{Binding Path = TeamVM.TeamsList}" DisplayMemberPath="TeamName" SelectedItem="{Binding Path = TeamVM.theTeam, Mode=TwoWay}"/>
                 </StackLayout>
 
                 <StackLayout x:Name="MakeChartButtonOne" IsVisible="False">

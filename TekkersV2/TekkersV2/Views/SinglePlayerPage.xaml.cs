@@ -91,42 +91,49 @@ namespace TekkersV2.Views
                     //List<int> testscores = playertestdata.Select(ts => ts.TestScore).ToList();
                     theViewModel.DataPoints = new ObservableCollection<ChartViewModel>();  //Converts the list to an observable collection
                     string dateFormat = "dd/MM/yyyy";
-                    foreach (var t in playertestdata)
+                    if (playertestdata.Count != 0)
                     {
-                        ChartViewModel c = new ChartViewModel(t.TestDate.ToString(dateFormat), t.TestScore, t.TestName);
-                        theViewModel.DataPoints.Add(c);
-                    }
+                        foreach (var t in playertestdata)
+                        {
+                            ChartViewModel c = new ChartViewModel(t.TestDate.ToString(dateFormat), t.TestScore, t.TestName);
+                            theViewModel.DataPoints.Add(c);
+                        }
 
-                    chart.PrimaryAxis = new CategoryAxis();
-                    chart.PrimaryAxis.Title.Text = "Date";
-                    chart.Legend = new ChartLegend();
-                    chart.Legend.DockPosition = LegendPlacement.Top;
-                    //chart.Legend.Title.Text = "Test name";
-                    //chart.PrimaryAxis = new CategoryAxis() { Interval = 2, LabelPlacement = LabelPlacement.BetweenTicks };
-                    chart.SecondaryAxis = new NumericalAxis() { Minimum = 0, Maximum = 100, Interval = 5 };
-                    chart.SecondaryAxis.Title.Text = "Score";
-                    chart.Title.Text = p.FirstName+"'s test scores";
-                    chart.Series.Add(new ColumnSeries()
+                        chart.PrimaryAxis = new CategoryAxis();
+                        chart.PrimaryAxis.Title.Text = "Date";
+                        chart.Legend = new ChartLegend();
+                        chart.Legend.DockPosition = LegendPlacement.Top;
+                        //chart.Legend.Title.Text = "Test name";
+                        //chart.PrimaryAxis = new CategoryAxis() { Interval = 2, LabelPlacement = LabelPlacement.BetweenTicks };
+                        chart.SecondaryAxis = new NumericalAxis() { Minimum = 0, Maximum = 100, Interval = 5 };
+                        chart.SecondaryAxis.Title.Text = "Score";
+                        chart.Title.Text = p.FirstName + "'s test scores";
+                        chart.Series.Add(new ColumnSeries()
+                        {
+                            ItemsSource = theViewModel.DataPoints.Where(cvm => cvm.TestName.Contains("Toe Taps")),
+                            XBindingPath = "Date",
+                            YBindingPath = "Score",
+                            Label = "Toe Taps",
+                            EnableTooltip = true,
+                            EnableDataPointSelection = true,
+                            EnableAnimation = true
+                        });
+                        chart.Series.Add(new ColumnSeries()
+                        {
+                            ItemsSource = theViewModel.DataPoints.Where(cvm => cvm.TestName.Contains("Foundations")),
+                            XBindingPath = "Date",
+                            YBindingPath = "Score",
+                            Label = "Foundations",
+                            EnableTooltip = true,
+                            EnableDataPointSelection = true,
+                            EnableAnimation = true
+                        });
+                        ChartGrid.Children.Add(chart);
+                    }
+                    else
                     {
-                        ItemsSource = theViewModel.DataPoints.Where(cvm => cvm.TestName.Contains("Toe Taps")),
-                        XBindingPath = "Date",
-                        YBindingPath = "Score",
-                        Label = "Toe Taps",
-                        EnableTooltip = true,
-                        EnableDataPointSelection = true,
-                        EnableAnimation = true
-                    });
-                    chart.Series.Add(new ColumnSeries()
-                    {
-                        ItemsSource = theViewModel.DataPoints.Where(cvm => cvm.TestName.Contains("Foundations")),
-                        XBindingPath = "Date",
-                        YBindingPath = "Score",
-                        Label = "Foundations",
-                        EnableTooltip = true,
-                        EnableDataPointSelection = true,
-                        EnableAnimation = true
-                    });
-                    ChartGrid.Children.Add(chart);
+                        await DisplayAlert("No tests","There doesn't appear to be any tests for this player yet", "OK");
+                    }
                     break;
 
                 case "See player progress":

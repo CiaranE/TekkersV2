@@ -13,7 +13,6 @@ namespace TekkersV2.Models
 {
     public class Countdown : INotifyPropertyChanged
     {
-
         private int _Seconds;
         private bool _isRunning;
         private bool _isFinished;

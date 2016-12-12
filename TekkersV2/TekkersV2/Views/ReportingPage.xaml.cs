@@ -48,7 +48,7 @@ namespace TekkersV2.Views
                     ProgressByTeam.IsVisible = true;
                     MakeChartButtonTwo.IsVisible = true;
                     break;
-                case "Top ten players by test in an age group":
+                case "Top five by test in an age group":
                     await DisplayAlert("Something", "Selected", "OK");
                     break;
                 default:
@@ -84,7 +84,12 @@ namespace TekkersV2.Views
                 TopTenByAgeFormHolder.IsVisible = false;
                 var chart = theViewModel.Chart;
                 var vm = theViewModel.ChartVM;
+               
                 var ageGroupPicked = Convert.ToInt32(AgeGroupPicker.Items[AgeGroupPicker.SelectedIndex]);
+                if (AgeGroupPicker.SelectedIndex <= 0)
+                {
+                    await DisplayAlert("No agegroup selcted", "Please choose an agegroup", "OK");
+                }
                 //GET THE PLAYERS OF THAT AGE
                 //theViewModel.PlayersByAgeList = await theViewModel.GetPlayersByAgeList(Convert.ToInt32(ageGroupPicked));
                 vm.AssessmentsColl = await vm.GetTopAssessmentsByAge(ageGroupPicked);
@@ -131,10 +136,12 @@ namespace TekkersV2.Views
             {
                 theChartGrid.Children.Clear();
                 theViewModel.Chart = new SfChart();
+                ChartTeamPicker.IsVisible = true;
+                //ChartTeamPickerOne.IsVisible = false;
                 //var vm = theViewModel.ChartVM;
-                if (ChartTeamPicker.SelectedItem == null)
+                if (ChartTeamPicker.SelectedIndex <= 0)
                 {
-                    await DisplayAlert("Warning", "You need to choose a team", "OK");
+                    await DisplayAlert("No team selected", "You need to choose a team", "OK");
                 }
                 else
                 {
@@ -189,7 +196,8 @@ namespace TekkersV2.Views
                     });
                     theChartGrid.Children.Add(chart);
                     chart.IsVisible = true;
-                    theViewModel.ChartVM.FullNames = null;
+                    theViewModel.ChartVM.FullNames = new ObservableCollection<string>();
+                    theViewModel.TeamVM.theTeam = null;
                 }
             }
             //SEE PLAYER PROGRESS BY TEAM
@@ -197,10 +205,12 @@ namespace TekkersV2.Views
             {
                 theChartGrid.Children.Clear();
                 theViewModel.Chart = new SfChart();
+                //ChartTeamPicker.IsVisible = false;
+                ChartTeamPickerOne.IsVisible = true;
                 //var vm = theViewModel.ChartVM;
-                if (ChartTeamPickerOne.SelectedItem == null)
+                if (ChartTeamPickerOne.SelectedIndex <= 0)
                 {
-                    await DisplayAlert("Warning", "You need to choose a team", "OK");
+                    await DisplayAlert("No team selected", "You need to choose a team", "OK");
                 }
                 else
                 {
@@ -273,7 +283,8 @@ namespace TekkersV2.Views
                     chart.Title.Text = "Progress of players on " + tvm.theTeam.TeamName;
                     theChartGrid.Children.Add(chart);
                     chart.IsVisible = true;
-                    theViewModel.ChartVM.FullNames = null;
+                    theViewModel.ChartVM.FullNames = new ObservableCollection<string>();
+                    theViewModel.TeamVM.theTeam = null;
                 }
             }
         }
