@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+  <!-- Inherit from the light Material Theme -->
+  <style name="MyCustomTheme" parent="android:Theme.Material.Light">
+    <!-- Customizations go here -->
+    <!-- Override the app bar color -->
+    <item name="android:colorPrimary">@color/my_blue</item>
+    <item name="android:colorPrimaryDark">@color/my_darkblue</item>
+    <!-- Override the color of UI controls -->
+    <item name="android:colorAccent">@color/my_red</item>
+    <item name="android:windowBackground">@color/my_white</item>
+  </style>
+
+  <style name="MySplash" parent="android:Theme.Material.Light">
+    <item name="android:windowBackground">@drawable/splash</item>
+    <item name="android:windowNoTitle">true</item>
+  </style>
+</resources>
