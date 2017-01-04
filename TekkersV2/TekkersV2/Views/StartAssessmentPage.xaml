@@ -10,22 +10,22 @@
     </ContentPage.BindingContext>
 
     <StackLayout>
-        <StackLayout Orientation="Horizontal">
+        <StackLayout Orientation="Horizontal" Margin="20">
             <Label Text="{Binding Player.FirstName}" FontSize="Large"/>
             <Label Text="{Binding Player.LastName}" FontSize="Large"/>
         </StackLayout>
 
-        <StackLayout Orientation="Vertical">
+        <StackLayout Orientation="Vertical" Margin="20">
             <Label Text="Please name the assessment:" FontSize="Large"/>
             <Entry Text="{Binding AssessVM.AssessmentName, Mode=TwoWay}"/>
         </StackLayout>
 
-        <StackLayout Orientation="Horizontal">
+        <StackLayout Orientation="Horizontal" Margin="20">
             <Label Text="Date:" FontSize="Large"/>
             <Label Text="{Binding AssessVM.AssessmentDate, StringFormat='{}{0:dd.MM.yyyy}'}" FontSize="Large"/>
         </StackLayout>
 
-        <StackLayout>
+        <StackLayout Margin="20">
             <Button Text="Start" Clicked="StartAssessmentEvent"></Button>
         </StackLayout>
     </StackLayout>

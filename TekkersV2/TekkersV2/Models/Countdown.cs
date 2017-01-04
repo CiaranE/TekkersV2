@@ -17,6 +17,7 @@ namespace TekkersV2.Models
         private bool _isRunning;
         private bool _isFinished;
 
+
         public int Seconds
         {
             get { return _Seconds; }
@@ -45,10 +46,7 @@ namespace TekkersV2.Models
         public event EventHandler Elapsed;
         protected virtual void OnTimerElapsed()
         {
-            if (Elapsed != null)
-            {
-                Elapsed(this, new EventArgs());
-            }
+            Elapsed?.Invoke(this, new EventArgs());
         }
 
         public Countdown(int seconds)

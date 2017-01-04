@@ -9,6 +9,7 @@
     <!-- Override the color of UI controls -->
     <item name="android:colorAccent">@color/my_red</item>
     <item name="android:windowBackground">@color/my_white</item>
+
   </style>
 
   <style name="MySplash" parent="android:Theme.Material.Light">

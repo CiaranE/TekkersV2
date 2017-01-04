@@ -9,20 +9,20 @@
         </ContentPage.BindingContext>
 
     <StackLayout>
-        <StackLayout Orientation="Horizontal">
+        <StackLayout Orientation="Horizontal" Margin="20">
             <Label Text="{Binding Player.FirstName}" FontSize="Large"/>
             <Label Text="{Binding Player.LastName}" FontSize="Large"/>
         </StackLayout>
 
-        <StackLayout Orientation="Vertical">
+        <StackLayout Orientation="Vertical" Margin="10">
             <Label Text="{Binding AssessVM.AssessmentName, Mode=TwoWay}" FontSize="Large"/>
         </StackLayout>
 
-        <StackLayout Orientation="Horizontal">
-            <Label Text="These are the tests that make up the assessment. Each test is taken twice and the highest score will be recorded. Please read the instructions before starting each test."></Label>
+        <StackLayout Orientation="Horizontal" Margin="10">
+            <Label Text="These are the tests that make up the assessment. Each test is taken twice and the highest score will be recorded. Please read the instructions before starting each test." FontSize="Large"></Label>
         </StackLayout>
 
-        <StackLayout Orientation="Vertical">
+        <StackLayout Orientation="Vertical" Margin="10">
             <ListView x:Name="TestListView" ItemsSource="{Binding AssessVM.ObserveTests, Mode=TwoWay}" ItemTapped="TestItemTapped">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -36,7 +36,7 @@
             </ListView>
         </StackLayout>
 
-        <StackLayout x:Name ="ShowAssessmentScore" Orientation ="Horizontal" IsVisible="False">
+        <StackLayout x:Name ="ShowAssessmentScore" Orientation ="Horizontal" IsVisible="False" Margin="10">
             <Label Text="The score for this assessment is "/>
             <Label Text="{Binding AssessVM.AssessmentScore}"/>
         </StackLayout>

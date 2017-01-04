@@ -13,14 +13,14 @@
 
 
     <StackLayout Orientation="Vertical">
-        <StackLayout Orientation="Horizontal">
+        <StackLayout Orientation="Horizontal" Margin="20">
             <Button Text="Add Player" Clicked="AddPlayerEvent"></Button>
             <Button Text="Add Team" Clicked="AddTeamEvent"></Button>
             <Button Text="See reports" Clicked="GoToReporting"></Button>
         </StackLayout>
 
-        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-            <Entry Text="{Binding NameToFind, Mode=TwoWay}" Placeholder="Search for player"/>
+        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="20">
+            <Entry Text="{Binding NameToFind, Mode=TwoWay}" Placeholder="Search for player" WidthRequest="300"/>
             <Button Text="Search" Command="{Binding FindByNameCommand}"/>
         </StackLayout>
 
@@ -70,10 +70,8 @@
                     <datagrid:SfDataGrid.SortColumnDescriptions>
                         <datagrid:SortColumnDescription ColumnName="FirstName" 
                                           SortDirection="Ascending" />
-                        <datagrid:SortColumnDescription ColumnName="LastName" 
-                                          SortDirection="Ascending" />
-                        <datagrid:SortColumnDescription ColumnName="PlayersTeam.TeamName" 
-                                          SortDirection="Ascending" />
+                        <datagrid:SortColumnDescription ColumnName="LastName"/>
+                        <datagrid:SortColumnDescription ColumnName="PlayersTeam.TeamName"/>
                     </datagrid:SfDataGrid.SortColumnDescriptions>
 
 
@@ -85,7 +83,7 @@
 
 
         <StackLayout IsVisible="False">
-            <Controls:BindablePicker x:Name="SortByTeamPicker" ItemsSource="{Binding Path=TeamVM.TeamsList}" DisplayMemberPath="TeamName" SelectedItem="{Binding Path=TeamVM.theTeam, Mode=TwoWay}" Title="Sort players by team"/>
+            <Controls:BindablePicker x:Name="SortByTeamPicker" ItemsSource="{Binding Path=TeamVM.TeamsList}" DisplayMemberPath="TeamName" SelectedItem="{Binding Path=TeamVM.theTeam, Mode=TwoWay}" Title="Sort players by team" Margin="20"/>
             <ListView x:Name="PlayerListView" ItemsSource="{Binding PlayerList}" ItemTapped="PlayerItemTapped" IsPullToRefreshEnabled="True" 
                   RefreshCommand="{Binding RefreshCommand}" IsRefreshing="{Binding IsBusy, Mode=OneWay}">
                 <ListView.ItemTemplate>

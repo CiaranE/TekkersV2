@@ -9,35 +9,39 @@
     </ContentPage.BindingContext>
 
     <StackLayout>
-        <StackLayout Orientation="Horizontal">
+        <StackLayout Orientation="Horizontal" Margin="10">
             <Label Text="{Binding AssessVM.AssessmentName, Mode=TwoWay}" FontSize="Large"/>
         </StackLayout>
 
-        <StackLayout Orientation="Vertical">
+        <StackLayout Orientation="Vertical" Margin="10">
             <Label Text="{Binding SelectedTest.TestName}" FontSize="Large"/>
             <Label Text="{Binding SelectedTest.TestDescription}" FontSize="Large"/>
         </StackLayout>
 
-        <StackLayout Orientation="Horizontal">
-            <Label Text="{Binding TestVM.Timer.Seconds, Mode=TwoWay}" FontSize="100" />
-            <Button x:Name="FirstAttemptButton"  Text="Start first attempt" Clicked ="RunTheTest" IsVisible="True"></Button>
-            <Button Text="Restart" Clicked ="CancelTimerEvent" IsVisible="True"></Button>
-            <Button x:Name="SecondAttemptButton" Text="Start second attempt" Clicked="RunAgain" IsVisible="False"/>
+        <StackLayout Orientation="Vertical">
+            <StackLayout>
+                <Label Text="{Binding TestVM.Timer.Seconds, Mode=TwoWay}" HorizontalOptions="Center" FontSize="200" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Button x:Name="FirstAttemptButton"  Text="Start first attempt" Clicked ="RunTheTest" IsVisible="True"></Button>
+                <Button Text="Restart" Clicked ="CancelTimerEvent" IsVisible="True"></Button>
+                <Button x:Name="SecondAttemptButton" Text="Start second attempt" Clicked="RunAgain" IsVisible="False"/>
+            </StackLayout>
         </StackLayout>
 
-        <StackLayout x:Name="TestAttemptOne" IsVisible="False" Orientation="Vertical">
-            <Label Text="Enter the score for the first attempt"/>
+        <StackLayout x:Name="TestAttemptOne" IsVisible="False" Orientation="Vertical" Margin="5">
+            <Label Text="Enter the score for the first attempt" FontSize="Large"/>
             <Entry Text="{Binding TestVM.AttemptOne}"/>
         </StackLayout>
         
-        <StackLayout x:Name="ShowAttemptOneScore" Orientation= "Horizontal" IsVisible="False">
-            <Label Text="The score for attempt one is"/>
-            <Label Text="{Binding TestVM.AttemptOne}"/>
+        <StackLayout x:Name="ShowAttemptOneScore" Orientation= "Horizontal" IsVisible="False" Margin="5">
+            <Label Text="The score for attempt one is" FontSize="Large"/>
+            <Label Text="{Binding TestVM.AttemptOne}" FontSize="Large"/>
         </StackLayout>
 
-        <StackLayout x:Name="TestAttemptTwo" IsVisible="False">
-            <Label Text="Enter the score for the second attempt"/>
-            <Entry Text="{Binding TestVM.AttemptTwo, Mode=TwoWay}"/>
+        <StackLayout x:Name="TestAttemptTwo" IsVisible="False" Margin="5">
+            <Label Text="Enter the score for the second attempt" FontSize="Large"/>
+            <Entry Text="{Binding TestVM.AttemptTwo}" FontSize="Large"/>
             <Button Text="Save test score" Clicked="SaveTestScoreEvent"/>
         </StackLayout>
     </StackLayout>

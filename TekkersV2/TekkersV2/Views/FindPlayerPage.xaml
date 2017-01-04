@@ -10,7 +10,7 @@
     </ContentPage.BindingContext>
 
 
-    <StackLayout Orientation="Vertical" Spacing="18">
+    <StackLayout Orientation="Vertical" Spacing="18" Margin="20">
         <Entry Text="{Binding NameToFind, Mode=TwoWay}"></Entry>
 
         <Button Text="Search" Command="{Binding FindByNameCommand}"></Button>

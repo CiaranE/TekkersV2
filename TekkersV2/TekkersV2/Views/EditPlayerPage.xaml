@@ -10,7 +10,7 @@
         <ViewModels:MainViewModel/>
     </ContentPage.BindingContext>
 
-    <StackLayout Orientation="Vertical" Spacing="18">
+    <StackLayout Orientation="Vertical" Spacing="18" Margin="20">
         <Label Text="Name"/>
         <Entry Text="{Binding Player.FirstName, Mode=TwoWay}"/>
 

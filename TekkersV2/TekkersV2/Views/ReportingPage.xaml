@@ -10,13 +10,13 @@
         <ViewModels:MainViewModel/>
     </ContentPage.BindingContext>
 
-    <StackLayout Orientation="Vertical">
+    <StackLayout Orientation="Vertical" Margin="20">
         <StackLayout Orientation="Vertical">
-            <StackLayout>
+            <StackLayout Margin="20">
                 <Picker x:Name="FormPicker" Title="Which chart do you want to create" SelectedIndex="1" SelectedIndexChanged="ShowChartFormEvent"/>
             </StackLayout>
 
-            <StackLayout x:Name="TopTenByAgeFormHolder" IsVisible="False">
+            <StackLayout x:Name="TopTenByAgeFormHolder" IsVisible="False" Margin="20">
                 <StackLayout>
                     <controls:BindablePicker x:Name="AgeGroupPicker" Title="Players born in year:" ItemsSource="{Binding Path = TeamVM.AgeGroups}" DisplayMemberPath="" SelectedItem="{Binding Path = ChartVM.AgeGroup}" SelectedIndexChanged="ShowMakeChartButton"/>
                 </StackLayout>
@@ -25,7 +25,7 @@
                 </StackLayout>
             </StackLayout>
 
-            <StackLayout x:Name="PlayerScoresByTeam" IsVisible="False">
+            <StackLayout x:Name="PlayerScoresByTeam" IsVisible="False" Margin="20">
                 <StackLayout x:Name="TeamPicker">
                     <controls:BindablePicker x:Name="ChartTeamPicker" Title="Pick the team" ItemsSource="{Binding Path = TeamVM.TeamsList}" DisplayMemberPath="TeamName" SelectedItem="{Binding Path = TeamVM.theTeam, Mode=TwoWay}"/>
                 </StackLayout>
@@ -35,7 +35,7 @@
                 </StackLayout>
             </StackLayout>
 
-            <StackLayout x:Name="ProgressByTeam" IsVisible="False">
+            <StackLayout x:Name="ProgressByTeam" IsVisible="False" Margin="20">
                 <StackLayout x:Name="TeamPickerOne">
                     <controls:BindablePicker x:Name="ChartTeamPickerOne" Title="Pick the team" ItemsSource="{Binding Path = TeamVM.TeamsList}" DisplayMemberPath="TeamName" SelectedItem="{Binding Path = TeamVM.theTeam, Mode = TwoWay}"/>
                 </StackLayout>
@@ -69,7 +69,7 @@
 
         <StackLayout x:Name="theChartStack" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
             <Grid x:Name="theChartGrid" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-                <chart:SfChart x:Name="chart" IsVisible="False" >
+                <chart:SfChart x:Name="chart" IsVisible="True" >
                     <chart:SfChart.PrimaryAxis>
                         <chart:CategoryAxis LabelRotationAngle="-45">
                             <chart:CategoryAxis.Title>
@@ -77,6 +77,13 @@
                             </chart:CategoryAxis.Title>
                         </chart:CategoryAxis>
                     </chart:SfChart.PrimaryAxis>
+                    <chart:SfChart.SecondaryAxis>
+                        <chart:NumericalAxis>
+                            <chart:NumericalAxis.Title>
+                                <chart:ChartAxisTitle/>
+                            </chart:NumericalAxis.Title>
+                        </chart:NumericalAxis>
+                    </chart:SfChart.SecondaryAxis>
                 </chart:SfChart>
             </Grid>
         </StackLayout>

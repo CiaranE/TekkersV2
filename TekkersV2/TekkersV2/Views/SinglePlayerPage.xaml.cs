@@ -83,8 +83,9 @@ namespace TekkersV2.Views
                     ChartGrid.Children.Clear();
                     var chart = theViewModel.Chart;
                     chart = new SfChart();
+                    Player plyr = theViewModel.Player;
                     theViewModel.DataPoints = null;
-                    await theViewModel.GetTestsForPlayer(p.Id);
+                    await theViewModel.GetTestsForPlayer(plyr.Id);
                     List<Test> playertestdata = theViewModel.PlayerTestList;
                     //List<DateTime> dates = playertestdata.Select(d => d.TestDate).ToList();
                     List<string> testnames = playertestdata.Select(tn => tn.TestName).ToList();
@@ -139,11 +140,12 @@ namespace TekkersV2.Views
                 case "See player progress":
                     chart = theViewModel.Chart;
                     chart = new SfChart();
+                    Player player = theViewModel.Player;
                     theViewModel.DataPoints = null;
 
                     //Maybe for comparison
                     //List<Player> team = theViewModel.Player.PlayersTeam.TeamPlayers.ToList();
-                    await theViewModel.AssessVM.GetAllAssessmentsForPlayer(p.Id);
+                    await theViewModel.AssessVM.GetAllAssessmentsForPlayer(player.Id);
                     
                     List<Assessment> allPlayerA = theViewModel.AssessVM.AssessmentList;
                     theViewModel.DataPoints = new ObservableCollection<ChartViewModel>();
@@ -180,17 +182,17 @@ namespace TekkersV2.Views
                     {
                         await DisplayAlert("No progress report possible", "This player has had only one assessment", "OK");
                     }
-                    else if(allPlayerA == null)
+                    else if(allPlayerA.Count == 0)
                     {
                         await DisplayAlert("No progress report possible", "This player has not been assessed yet", "OK");
                     }
                         break;
 
                 case "See another thing":
-                    await DisplayAlert(p.FirstName + " " + p.LastName, "Selected", "OK");
+                    await DisplayAlert(p.FirstName + " " + p.LastName, "Another chart can go here", "OK");
                     break;
                 case "See something else":
-                    await DisplayAlert(p.FirstName + " " + p.LastName, "Selected", "OK");
+                    await DisplayAlert(p.FirstName + " " + p.LastName, "Another chart can go here", "OK");
                     break;
                 default:
                     ChartPicker.IsVisible = true;

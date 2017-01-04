@@ -10,7 +10,7 @@
         <ViewModels:MainViewModel/>
     </ContentPage.BindingContext>
 
-    <StackLayout Orientation="Vertical" Spacing="18">
+    <StackLayout Orientation="Vertical" Spacing="18" Margin="20">
 
         <StackLayout Orientation="Horizontal">
             <Button Text="Edit player" Clicked="EditPlayerEvent"></Button>
@@ -18,7 +18,7 @@
             <Button Text="Assess player" Clicked="AssessPlayerEvent"></Button>
         </StackLayout>
 
-        <StackLayout Orientation="Horizontal">
+        <StackLayout Orientation="Horizontal" Margin="10">
             <Label Text="Name:"
                VerticalOptions="Center"/>
             <Label Text="{Binding Player.FirstName}"
@@ -28,14 +28,14 @@
                VerticalOptions="Center"/>
         </StackLayout>
 
-        <StackLayout Orientation="Horizontal">
+        <StackLayout Orientation="Horizontal" Margin="10">
             <Label Text="Date of birth:"
                VerticalOptions="Center"/>
             <Label Text="{Binding Player.DateOfBirth, StringFormat='{}{0:dd.MM.yyyy}'}"
                VerticalOptions="Center"/>
         </StackLayout>
 
-        <StackLayout Orientation="Horizontal">
+        <StackLayout Orientation="Horizontal" Margin="10">
             <Label Text="Guardian:"
                VerticalOptions="Center"/>
             <Label Text="{Binding Player.ParentFName}"
@@ -45,21 +45,21 @@
                VerticalOptions="Center"/>
         </StackLayout>
 
-        <StackLayout Orientation="Horizontal">
+        <StackLayout Orientation="Horizontal" Margin="10">
             <Label Text="Phone:"
                VerticalOptions="Center" />
             <Label Text="{Binding Player.PhoneNum}"
                VerticalOptions="Center"/>
         </StackLayout>
 
-        <StackLayout Orientation="Horizontal">
+        <StackLayout Orientation="Horizontal" Margin="10">
             <Label Text="Email:"
                VerticalOptions="Center" />
             <Label Text="{Binding Player.Email}"
                VerticalOptions="Center"/>
         </StackLayout>
 
-        <StackLayout Orientation="Horizontal">
+        <StackLayout Orientation="Horizontal" Margin="10">
             <Label Text="Team:" VerticalOptions="Center"/>
             <Label Text="{Binding Player.PlayersTeam.TeamName}"/>
         </StackLayout>

@@ -10,21 +10,21 @@
         <ViewModels:MainViewModel/>
     </ContentPage.BindingContext>
 
-    <StackLayout Orientation="Vertical">
+    <StackLayout Orientation="Vertical" Margin="20">
         <Label Text="Name"/>
-        <Entry Text="{Binding Player.FirstName, Mode=TwoWay}"/>
+        <Entry Text="{Binding Player.FirstName, Mode=TwoWay}" Placeholder="First name"/>
 
         <Label Text="Surname"/>
-        <Entry Text="{Binding Player.LastName,  Mode=TwoWay}"/>
+        <Entry Text="{Binding Player.LastName,  Mode=TwoWay}" Placeholder="Surname"/>
 
         <Label Text="Date of birth"/>
         <DatePicker x:Name="DatePicker" Date="{Binding Player.DateOfBirth, Mode=TwoWay}" />
 
         <Label Text="Guardian name"/>
-        <Entry Text="{Binding Player.ParentFName, Mode=TwoWay}"/>
+        <Entry Text="{Binding Player.ParentFName, Mode=TwoWay}" Placeholder="Guardian firstname"/>
 
         <Label Text="Guardian Surname"/>
-        <Entry Text="{Binding Player.ParentLName, Mode=TwoWay}"/>
+        <Entry Text="{Binding Player.ParentLName, Mode=TwoWay}" Placeholder="Guardian surname"/>
 
         <Label Text="Phone number"/>
         <Entry Text="{Binding Player.PhoneNum, Mode=TwoWay}" Keyboard="Telephone"/>
